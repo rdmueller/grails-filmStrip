@@ -1,0 +1,6 @@
+grails-filmStrip
+================
+
+a grails plugin for better geb/spock reports
+
+more to come soon
