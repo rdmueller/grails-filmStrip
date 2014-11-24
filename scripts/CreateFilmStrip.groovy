@@ -111,7 +111,7 @@ th { min-width: 100%;}
 div#menu {
 	position:absolute;
 	bottom: 0px;
-	height: 30%;
+	height: 165px;
 	width: 100%;
 	overflow: scroll;
 	border-top: 1px solid black;
