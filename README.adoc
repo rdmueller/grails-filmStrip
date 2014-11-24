@@ -4,3 +4,5 @@ grails-filmStrip
 a grails plugin for better geb/spock reports
 
 more to come soon
+
+class for turning on debug logging is "CreateFilmStrip_groovy"
