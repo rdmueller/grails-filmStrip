@@ -34,7 +34,7 @@ target(createFilmStrip: "Script to generate a better Test-Report for Spock-Geb T
         head {
             title('Functional Test-Report')
             link(rel:'stylesheet', type:'text/css', href:'report.css')
-            
+            meta('http-equiv':'Content-Type', content:'text/html; charset=utf-8')
         }
         body {
             div(id:'menu') {
