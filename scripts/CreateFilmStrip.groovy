@@ -20,8 +20,9 @@ target(createFilmStrip: "Script to generate a better Test-Report for Spock-Geb T
         log.debug "spec: "+spec
         new File(path+"geb/"+spec.replaceAll("[.]","/")+"/.").eachFile {
             log.debug "name: ${it.name} - test: ${testName}"
-            if (it.name.contains(testName)&&it.name.endsWith('.html')) {
-                def name = (it.name-"-${testName}-"-".html")
+            def testFileName = testName.replaceAll("[^- a-zA-Z0-9]",'_')
+            if (it.name.contains(testFileName)&&it.name.endsWith('.html')) {
+                def name = (it.name-"-${testFileName}-"-".html")
                 name = name.replaceAll("^[0-9]{3}-[0-9]{3}","")
                 reports << [file:it.name,'name':name]
             }
@@ -33,6 +34,7 @@ target(createFilmStrip: "Script to generate a better Test-Report for Spock-Geb T
         head {
             title('Functional Test-Report')
             link(rel:'stylesheet', type:'text/css', href:'report.css')
+            
         }
         body {
             div(id:'menu') {
@@ -62,10 +64,10 @@ target(createFilmStrip: "Script to generate a better Test-Report for Spock-Geb T
                                                                 //                                                                if (""+report.name!="end") {
                                                                 td {
                                                                     span {
-                                                                        a(target:'content',href:"${spec}/"+report.file, ""+report.name)
+                                                                        a(target:'content',href:"${spec.replaceAll('[.]','/')}/"+report.file, ""+report.name)
                                                                         br()
-                                                                        a(class:'img',target:'content',href:"${spec}/"+(report.file.replaceAll('html$','png'))) {
-                                                                            img(src:"${spec}/"+(report.file.replaceAll('html$','png')))
+                                                                        a(class:'img',target:'content',href:"${spec.replaceAll('[.]','/')}/"+(report.file.replaceAll('html$','png'))) {
+                                                                            img(src:"${spec.replaceAll('[.]','/')}/"+(report.file.replaceAll('html$','png')))
                                                                         }
                                                                     }
                                                                     //                                                                    }
