@@ -15,7 +15,9 @@ target(createFilmStrip: "Script to generate a better Test-Report for Spock-Geb T
         def testName = it.@name.text()
         specs[spec] = specs[spec]?:[:]
         def reports = []
-        new File(path+"geb/"+spec+"/.").eachFile {
+        log.debug "spec: "+spec
+        new File(path+"geb/"+spec.replaceAll("[.]","/")+"/.").eachFile {
+            log.debug "name: ${it.name} - test: ${testName}"
             if (it.name.contains(testName)&&it.name.endsWith('.html')) {
                 def name = (it.name-"-${testName}-"-".html")
                 name = name.replaceAll("^[0-9]{3}-[0-9]{3}","")
@@ -187,4 +189,4 @@ table.level3 span a img {
     println "Film-Strip created at './target/test-reports/geb/geb_report.html'"
 }
 
-setDefaultTarget(createFilmStrip)
+//setDefaultTarget(createFilmStrip)

@@ -1,6 +1,6 @@
 class FilmStripGrailsPlugin {
     // the plugin version
-    def version = "0.1"
+    def version = "0.1.1"
     // the version or versions of Grails the plugin is designed for
     def grailsVersion = "2.4 > *"
     // resources that are excluded from plugin packaging
@@ -10,8 +10,8 @@ class FilmStripGrailsPlugin {
 
     // TODO Fill in these fields
     def title = "Film Strip Plugin" // Headline display name of the plugin
-    def author = "Your name"
-    def authorEmail = ""
+    def author = "Ralf D. Müller"
+    def authorEmail = "ralf.d.mueller@gmail.com"
     def description = '''\
 Brief summary/description of the plugin.
 '''

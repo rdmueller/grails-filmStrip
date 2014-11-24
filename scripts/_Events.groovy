@@ -18,31 +18,18 @@
  *
  * @author Ralf D. Müller
  */
-//includeTargets << new File('./scripts/CreateFilmStrip.groovy')
-//includeTargets << new File("${arc42PluginDir}/scripts/_Arc42GenerateHtmlFromAsciiDoc.groovy")
+import org.codehaus.groovy.grails.plugins.GrailsPluginUtils
+
+def pluginDir = GrailsPluginUtils.pluginInfos.find { it.name == "film-strip" }.pluginDir
+
+includeTargets << new File("${pluginDir}/scripts/CreateFilmStrip.groovy")
+
 eventTestProduceReports = { name ->
-    System.out.println ">"*80
-    System.out.println "produceReports "+name
-    System.out.println ">"*80
+    createFilmStrip()
 }
 eventTestPhaseEnd = { name ->
-    System.out.println ">"*80
-    System.out.println "phaseEnd "+name
-    System.out.println ">"*80
 }
-eventTestPhasesEnd = { name ->
-    System.out.println ">"*80
-    System.out.println "phasesEnd "+name
-    System.out.println ">"*80
+eventTestPhasesEnd = { 
 }
 eventTestSuiteEnd = { name ->
-    System.out.println ">"*80
-    System.out.println "! ${filmstripPluginDir}"
-    System.out.println "! ${grails-filmStripPluginDir}"
-    if (name.toLowerCase()=='spock') {
-    System.out.println ">"*80
-    System.out.println name
-    System.out.println ">"*80
-    createFilmStrip()
-    }
 }
