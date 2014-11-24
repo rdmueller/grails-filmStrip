@@ -1,9 +1,11 @@
+import org.apache.log4j.Logger
 
 target(createFilmStrip: "Script to generate a better Test-Report for Spock-Geb Tests") {
     
     //https://github.com/damage-control/report/wiki/Sample-Reports
+    Logger log = Logger.getLogger(getClass())
     
-    echo "brush up the  spock/geb report"
+    println "brush up the  spock/geb report"
         
     def path = "./target/test-reports/"
     def testResult = new File(path+"TESTS-TestSuites.xml").getText('utf-8')
@@ -42,7 +44,7 @@ target(createFilmStrip: "Script to generate a better Test-Report for Spock-Geb T
                                         a(href:'#spec'+(i-1),"<") 
                                     span(" ")
                                     a(href:'#spec'+(i+1),"> ") 
-                                    a(target:'content',href:"../html/${i}_${spec}.html", "${i+1}. $spec")
+                                    a(target:'content',href:"../html/${(spec.contains('.')?spec.split('[.]')[0..-2].join('/')+'/':'')+i+'_'+spec.split('[.]')[-1]}.html", "${i+1}. $spec")
                                 }
                             }
                         }
@@ -189,4 +191,4 @@ table.level3 span a img {
     println "Film-Strip created at './target/test-reports/geb/geb_report.html'"
 }
 
-//setDefaultTarget(createFilmStrip)
+setDefaultTarget(createFilmStrip)
