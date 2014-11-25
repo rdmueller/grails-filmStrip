@@ -3,8 +3,8 @@ grails-filmStrip-plugin
 
 Geb and Spock is a great combination if you need to create functional tests for your Grails application.
 
-A not so well known feature is the http://www.gebish.org/manual/current/testing.html#reporting[++report++] feature: whenever you unse the command ++report "some text"++, 
-geb tries to create a screenshot and save the current DOM as HTML. 
+A not so well known feature is the http://www.gebish.org/manual/current/testing.html#reporting[++report++] feature: +
+whenever you use the command ++report "some text"++, geb tries to create a screenshot and save the current DOM as HTML. 
 
 This plugin crawls through the generated screenshots and creates an HTML report which displays preview images as film strip
 on the bottom of the page and the test result on the main part of the window. When you click on an image, it will be displayed
