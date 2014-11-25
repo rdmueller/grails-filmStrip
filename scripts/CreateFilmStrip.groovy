@@ -5,29 +5,41 @@ target(createFilmStrip: "Script to generate a better Test-Report for Spock-Geb T
     //https://github.com/damage-control/report/wiki/Sample-Reports
     Logger log = Logger.getLogger(getClass())
     
-    println "brush up the  spock/geb report"
+    println "brush up spock/geb report"
         
     def path = "./target/test-reports/"
-    def testResult = new File(path+"TESTS-TestSuites.xml").getText('utf-8')
+    def resultFile = new File(path+"TESTS-TestSuites.xml")
+    def testResult = ""
+    if (resultFile.exists()) {
+        testResult = resultFile.getText('utf-8')
+    } else {
+        println "no test results found: ${resultFile.canonicalName}"
+        testResult = "<testsuite><testcase/></testsuite>"
+    }
     def xml = new XmlSlurper().parseText(testResult)
     def reportNum = 1
     def specs = [:]
     xml.testsuite.testcase.each {
         def spec = it.@classname.text()
-        def testName = it.@name.text()
-        specs[spec] = specs[spec]?:[:]
-        def reports = []
-        log.debug "spec: "+spec
-        new File(path+"geb/"+spec.replaceAll("[.]","/")+"/.").eachFile {
-            log.debug "name: ${it.name} - test: ${testName}"
-            def testFileName = testName.replaceAll("[^- a-zA-Z0-9]",'_')
-            if (it.name.contains(testFileName)&&it.name.endsWith('.html')) {
-                def name = (it.name-"-${testFileName}-"-".html")
-                name = name.replaceAll("^[0-9]{3}-[0-9]{3}","")
-                reports << [file:it.name,'name':name]
+        if (new File(path+"TEST-functional-spock-${spec}.xml").exists()) {
+            def testName = it.@name.text()
+            specs[spec] = specs[spec]?:[:]
+            def reports = []
+            log.debug "spec: "+spec
+            def gebDir = new File(path+"geb/"+spec.replaceAll("[.]","/")+"/.")
+            if (gebDir.exists()) {
+                gebDir.eachFile {
+                    log.debug "name: ${it.name} - test: ${testName}"
+                    def testFileName = testName.replaceAll("[^- a-zA-Z0-9]",'_')
+                    if (it.name.contains(testFileName)&&it.name.endsWith('.html')) {
+                        def name = (it.name-"-${testFileName}-"-".html")
+                        name = name.replaceAll("^[0-9]{3}-[0-9]{3}","")
+                        reports << [file:it.name,'name':name]
+                    }
+                }
             }
+            specs[spec][testName] = reports
         }
-        specs[spec][testName] = reports
     }
     def xhtml = new StringWriter()
     new groovy.xml.MarkupBuilder(xhtml).html {
@@ -43,7 +55,7 @@ target(createFilmStrip: "Script to generate a better Test-Report for Spock-Geb T
                         specs.eachWithIndex { spec, tests, i ->
                             th {
                                 a(name:'spec'+i,class:'anchor') {
-                                        a(href:'#spec'+(i-1),"<") 
+                                    a(href:'#spec'+(i-1),"<") 
                                     span(" ")
                                     a(href:'#spec'+(i+1),"> ") 
                                     a(target:'content',href:"../html/${(spec.contains('.')?spec.split('[.]')[0..-2].join('/')+'/':'')+i+'_'+spec.split('[.]')[-1]}.html", "${i+1}. $spec")
@@ -92,6 +104,7 @@ target(createFilmStrip: "Script to generate a better Test-Report for Spock-Geb T
             }
         }
     }
+    new File("./target/test-reports/geb/").mkdirs()
     new File("./target/test-reports/geb/geb_report.html").write(xhtml.toString())
     new File("./target/test-reports/geb/report.css").write("""
 
@@ -193,4 +206,4 @@ table.level3 span a img {
     println "Film-Strip created at './target/test-reports/geb/geb_report.html'"
 }
 
-setDefaultTarget(createFilmStrip)
+//setDefaultTarget(createFilmStrip)

@@ -25,11 +25,15 @@ def pluginDir = GrailsPluginUtils.pluginInfos.find { it.name == "film-strip" }.p
 includeTargets << new File("${pluginDir}/scripts/CreateFilmStrip.groovy")
 
 eventTestProduceReports = { name ->
+    println "eventTestProduceReports "+name
     createFilmStrip()
 }
 eventTestPhaseEnd = { name ->
+    println "eventTestPhaseEnd "+name
 }
 eventTestPhasesEnd = { 
+    println "eventTestPhasesEnd "
 }
 eventTestSuiteEnd = { name ->
+    println "eventTestSuiteEnd "+name
 }
