@@ -23,16 +23,35 @@ import org.codehaus.groovy.grails.plugins.GrailsPluginUtils
 def pluginDir = GrailsPluginUtils.pluginInfos.find { it.name == "film-strip" }.pluginDir
 
 includeTargets << new File("${pluginDir}/scripts/CreateFilmStrip.groovy")
+includeTargets << new File("${pluginDir}/scripts/_convertJsonFilmStripReport.groovy")
 
-eventTestProduceReports = { name ->
-    println "eventTestProduceReports "+name
+eventTestProduceReports = { 
+    println "eventTestProduceReports "
+    convertJsonReport()
     createFilmStrip()
+}
+eventTestPhasesStart = { name ->
+    println "eventTestPhasesStart "+name
+    println "monkey patch for geb.report.Reporter"
+    geb.report.ReporterSupport
+        .metaClass.'static'.toTestReportLabel={
+                int testCounter, 
+                int reportCounter, 
+                String methodName, 
+                String label ->
+        //escape dashes...
+        return "${testCounter}-${reportCounter}-${methodName.replaceAll('-','--')}-${label.replaceAll('-','--')}"
+    }
 }
 eventTestPhaseEnd = { name ->
     println "eventTestPhaseEnd "+name
 }
 eventTestPhasesEnd = { 
     println "eventTestPhasesEnd "
+}
+eventTestSuiteStart = { name ->
+    println "testSuiteStart: ${name}"
+    
 }
 eventTestSuiteEnd = { name ->
     println "eventTestSuiteEnd "+name
