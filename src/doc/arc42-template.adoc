@@ -1,0 +1,109 @@
+// header file for arc42-template,
+// including all help texts
+//
+// ====================================
+
+= Film-Strip Grails Plugin
+// toc-title definition MUST follow document title without blank line!
+:toc-title: Table of Contents
+
+//additional style for arc42 help callouts
+ifdef::basebackend-html[]
+++++
+<style>
+.arc42help {font-size:small; width: 14px; height: 16px; overflow: hidden; position: absolute; right: 0px; padding: 2px 0px 3px 2px;}
+.arc42help::before {content: "?";}
+.arc42help:hover {width:auto; height: auto; z-index: 100; padding: 10px;}
+.arc42help:hover::before {content: "";}
+@media print {
+	.arc42help {display:hidden;}
+}
+</style>
+++++
+endif::basebackend-html[]
+
+// configure EN settings for asciidoc
+include::config.adoc[]
+
+
+include::sections/about-arc42.adoc[]
+
+// horizontal line
+***
+
+// numbering from here on
+:numbered:
+
+<<<<
+// 1. Introduction and Goals
+include::sections/01_introduction_and_goals.adoc[]
+
+<<<<
+// 2. Architecture Constraints
+include::sections/02_architecture_constraints.adoc[]
+
+<<<<
+// 3. System Scope and Context
+include::sections/03_system_scope_and_context.adoc[]
+
+<<<<
+// 4. Solution Strategy
+include::sections/04_solution_strategy.adoc[]
+
+<<<<
+// 5. Building Block View
+include::sections/05_building_block_view.adoc[]
+
+<<<<
+// 6. Runtime View
+include::sections/06_runtime_view.adoc[]
+
+<<<<
+// 7. Deployment View
+include::sections/07_deployment_view.adoc[]
+
+<<<<
+// 8. Concepts
+include::sections/08_concepts.adoc[]
+
+<<<<
+// 9. Design Decisions
+include::sections/09_design_decisions.adoc[]
+
+<<<<
+// 12. Glossary
+include::sections/12_glossary.adoc[]
+
+
+// appendices:
+// =====================================
+
+<<<<
+// Appendix References
+include::sections/appendix-references.adoc[]
+
+<<<<
+// Appendix Examples
+include::sections/appendix-examples.adoc[]
+
+<<<<
+// Contributing and Contributors
+include::sections/appendix-contributing.adoc[]
+
+=== open issues
+
+[options="header",cols="1,1,10"]
+|==========
+|ID    |State  | Description
+|FS-1  |closed | asciidoc: how to reference Requirements the right way. something like <<R2>>
+|FS-2  |closed | a '-' in a test or report label is a problem because it is also used as
+                 delimiter in the reports labels
+|FS-3  |started| need an example report. let's base it on the petclinic and deploy on 
+                 github. has to be referenced from this documentations appendix
+|FS-4  |open   | add some profile "fotos" to each persona. There is this cool avatar genrator which might be used.
+|FS-5  |closed | we now have a quite customized gebConfig.groovy. The plugin has to make sure that it is used...
+|FS-6  |open   | packages are currently not supported => document this
+|FS-7  |open   | End-Reports are currently not shown. The intended behaviour is that they are only not shown 
+                 when the content is the same as of the report before. This can be achieved by comparing the reported HTML 
+|==========
+        

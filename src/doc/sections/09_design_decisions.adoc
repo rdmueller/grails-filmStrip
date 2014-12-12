@@ -1,0 +1,23 @@
+[[section-design-decisions]]
+== Design Decisions
+
+=== Data Collection
+
+==== Problem
+
+In order to create a report, we have to collect the data we want to report on.
+
+==== Alternatives and Solution/Decision
+
+The first version of the FilmStrip-Plugin crawled through the generated screenshots and tried to extract all data from the the image name and its path.
+
+The current version uses a ReportListener to collect the data. The ReportListener gets some more information than the one available in the file system like the URL and name of page object.
+
+Since there is only an +onReport+ event and no +onReportFinished+ and because of the data provided, the data collection is a two step process: 
+
+. extract the needed data from the +onReport+ event
+. transform the result into a better structured map without redundancy
+
+The data from step one is collected in a JSON formatted report file and read in step two from this file.
+
+The number together with the label of the test and report is made available as one String, joined together with dashed ('-'). So if the labels contain a dash themself, the labels will not be extracted the right way. To solve this, the +geb.report.ReporterSupport+ got monkey patches through meta-programming.
