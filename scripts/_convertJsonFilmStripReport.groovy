@@ -3,7 +3,6 @@ import grails.converters.*
 target(convertJsonReport: "Script to convert ouput from geb.ReportingListener into something structured") {
     def reportsDir = "target/test-reports/geb/"
     def thisPath = new File('.').canonicalPath.replaceAll('\\\\','/')
-    println "thisPath $thisPath"
     def gebReports = new File(reportsDir+"gebReportInfo.json").text.replaceAll('\\\\','/')
     def allReports = [specs:[]]
     gebReports.eachLine { json ->
