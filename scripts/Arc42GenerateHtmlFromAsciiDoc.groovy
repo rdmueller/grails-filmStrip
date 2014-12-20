@@ -24,7 +24,7 @@ target(generateHtml: "compile AsciiDoc to HTML") {
                             )
     new File('target/doc/').mkdirs()
     new File('target/doc/architecture.html').write(output,'utf-8')									
-    println "finished generating docu at target/doc/architecture.html"									
+    println "FilmStrip: finished generating docu at target/doc/architecture.html"									
 }
 
 setDefaultTarget(generateHtml)
