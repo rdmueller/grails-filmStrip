@@ -1,0 +1,16 @@
+:numbered!:
+
+[appendix]
+== Example Reports
+
+Currently there is only one example which is based on the Pet Clinic sample application.
+
+image::../images/Screenshot.png["Screenshot", align="center"]
+
+the report can be found at
+
+TODO: 
+
+add the corresponding version of the Pet Clinic can be found at
+
+TODO: 

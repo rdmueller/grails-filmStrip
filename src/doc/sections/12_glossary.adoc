@@ -1,0 +1,23 @@
+[[section-glossary]]
+== Glossary
+
+This is mainly a glossary for Spock terms and how I do understand their meaning.
+Please correct it if I am wrong - RDM 
+
+[options="header", cols="1,1,5"]
+|===
+| Term       | Synonym       | Description 
+| Spec       | Specification | A test specification which groups some tests together 
+| Feature    | Test          | A spec specifies features which have to be tested. 
+                               Mostly exchangeable with "test", but some features need 
+                               more than one test...
+| Feature Run| Iteration     | When you define a data driven Spock test, each 
+                               execution is called a feature run
+| Report     | Snapshot      | The geb command to save the current browser page as
+                               image and HTML source is called +report+ and hence
+                               the created snapshot is often called a report
+| Report Group|              | a report group is a Geb concept. Spock automatically
+                               sets the report group to the name of the current
+                               Feature/Test and Geb will store all reports
+                               in a folder corresponding to this name.
+|===

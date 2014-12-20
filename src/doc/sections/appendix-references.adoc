@@ -1,0 +1,14 @@
+:numbered!:
+
+[[bibliography]]
+[appendix]
+== References
+
+Geb and the Book of Geb::
+Geb Plugin::
+Spock::
+Spock Plugin::
+Pet Clinic Sample Application::
+GhostDriver::
+PhantomJS::
+arc42:: http://arc42.org (german) http://arc42.de/en (english)

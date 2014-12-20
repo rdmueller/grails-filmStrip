@@ -1,0 +1,18 @@
+:numbered!:
+
+[appendix]
+== Contributing
+
+Contributions are welcome. The quality and form does not matter. If you don't have 
+much time, just drop me a note (ralf.d.mueller at gmail.com) or 
+https://github.com/rdmueller/grails-filmStrip/issues[add an issue].
+
+If you have more time and want to contribute to the code, just fork the project
+and create a pull request when ever you contribution is ready.
+
+The easiest way to work on the project is to fork both, this repository and the
+film strip fork of the petclinic project. Place them on the same level and the
+petclinic project will already be configured to reference the film strip plugin
+locally - this avoids having to build the plugin whenever you modify it.
+
+Currently, there are no automated tests. So you are also not required to create tests :-).

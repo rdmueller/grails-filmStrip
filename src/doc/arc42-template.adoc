@@ -25,6 +25,7 @@ endif::basebackend-html[]
 // configure EN settings for asciidoc
 include::config.adoc[]
 
+image::../images/Screenshot.png["Screenshot", align="center"]
 
 include::sections/about-arc42.adoc[]
 
@@ -51,22 +52,6 @@ include::sections/03_system_scope_and_context.adoc[]
 include::sections/04_solution_strategy.adoc[]
 
 <<<<
-// 5. Building Block View
-include::sections/05_building_block_view.adoc[]
-
-<<<<
-// 6. Runtime View
-include::sections/06_runtime_view.adoc[]
-
-<<<<
-// 7. Deployment View
-include::sections/07_deployment_view.adoc[]
-
-<<<<
-// 8. Concepts
-include::sections/08_concepts.adoc[]
-
-<<<<
 // 9. Design Decisions
 include::sections/09_design_decisions.adoc[]
 
@@ -90,7 +75,14 @@ include::sections/appendix-examples.adoc[]
 // Contributing and Contributors
 include::sections/appendix-contributing.adoc[]
 
-=== open issues
+== Open Issues
+
+In order to work offline on this project, all open issues are collected in this
+document. But if you want to open a new issue, just add it to the github issues 
+located at https://github.com/rdmueller/grails-filmStrip/issues . The ultimate
+goal is to sync these offline issues with the github ones. An intermediate goal
+would be to export the github issues to this document in order to maintain the
+issues online but always have an offline copy.
 
 [options="header",cols="1,1,10"]
 |==========
@@ -100,10 +92,26 @@ include::sections/appendix-contributing.adoc[]
                  delimiter in the reports labels
 |FS-3  |started| need an example report. let's base it on the petclinic and deploy on 
                  github. has to be referenced from this documentations appendix
-|FS-4  |open   | add some profile "fotos" to each persona. There is this cool avatar genrator which might be used.
-|FS-5  |closed | we now have a quite customized gebConfig.groovy. The plugin has to make sure that it is used...
+|FS-4  |open   | add some profile "fotos" to each persona. There is this cool 
+                 avatar genrator which might be used.
+|FS-5  |closed | we now have a quite customized gebConfig.groovy. The plugin has 
+                 to make sure that it is used...
 |FS-6  |open   | packages are currently not supported => document this
-|FS-7  |open   | End-Reports are currently not shown. The intended behaviour is that they are only not shown 
-                 when the content is the same as of the report before. This can be achieved by comparing the reported HTML 
+|FS-7  |open   | End-Reports are currently not shown. The intended behaviour is 
+                 that they are only not shown when the content is the same as of 
+                 the report before. This can be achieved by comparing the reported HTML 
+|FS-8  |open   | Replace monkey patch with a better solution. Solution proposed 
+                 by Marcin Erdmann: extend GebReportingSpec.
+|FS-9  |open   | Want to have a button with which I can flip through all screens
+|FS-10 |open   | It would be nice to find an automated way to add the
+                 +FileStripReportingListener+ to the +gebConfig+
+|FS-11 |open   | finish documentation
+|FS-12 |open   | compare created arc42 documentation with docs of the 10 best plugins
+|FS-13 |open   | create the same functionality as gradle project, later plugin
+|FS-14 |open   | see FS-6 : Packages are important, so implement them
+|FS-15 |open   | upload the petclinic report to github.io and add it to the examples section
+|FS-16 |open   | add contributions section to documentation
+|FS-17 |open   | upload the HTML-Version of this documentation to github.io and
+                 reference it from readme
 |==========
         
