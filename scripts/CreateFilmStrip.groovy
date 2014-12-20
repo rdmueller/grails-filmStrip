@@ -6,7 +6,7 @@ target(createFilmStrip: "Script to generate a better Test-Report for Spock-Geb T
     
     //https://github.com/damage-control/report/wiki/Sample-Reports
     
-    println "create Film-Strip"
+    println "FilmStrip: create Film-Strip"
         
     def reportsDir = "./target/test-reports/geb/"
     def gebReports = new File(reportsDir+"gebReportInfo2.json").text.replaceAll('\\\\','/')
@@ -76,13 +76,12 @@ target(createFilmStrip: "Script to generate a better Test-Report for Spock-Geb T
         }
     }
     def reportFileName = reportsDir.toString()+"geb_report.html"
-    println reportFileName
     new File(reportFileName).write(xhtml.toString())
     def pluginDir = GrailsPluginUtils.pluginInfos.find { it.name == "film-strip" }.pluginDir
     new File("./target/test-reports/geb/report.css").write(
         new File(pluginDir.toString()+'/web-app/css/report.css').text
     )
-    println "Film-Strip created at '$reportFileName'"
+    println "FilmStrip: created at '$reportFileName'"
 }
 
 //setDefaultTarget(createFilmStrip)
