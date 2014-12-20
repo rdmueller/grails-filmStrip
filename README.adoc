@@ -22,3 +22,7 @@ There is not much to do in order to use the plugin. Just configure it in your +B
     reportingListener = new com.github.rdmueller.FilmStripReportingListener()
 
 If your geb ++reportDir++ is the standard one, the report will be generated after running ++grails test-app++.
+
+=== Documentation
+
+The documentation is currently located at https://github.com/rdmueller/grails-filmStrip/blob/master/src/doc/arc42-template.adoc .
