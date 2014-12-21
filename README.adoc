@@ -15,6 +15,8 @@ The aim of this plugin is not only to help a tester in developing Geb/Spock test
 a report for your customer. With all those screenshot you can easily get an graphical overview of the application and
 see if all pages display correctly.
 
+image::./src/docs/images/Screenshot.png["Screenshot", align="center"]
+
 === Setup
 
 There is not much to do in order to use the plugin. Just configure it in your +BuildConfig.groovy+ and add the folowing line to your gebConfig.groovy:
