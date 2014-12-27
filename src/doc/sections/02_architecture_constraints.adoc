@@ -3,7 +3,8 @@
 
 Since this plugin should be available to a wide range of developers, the plugin 
 should be compatible with a wide range of Grails versions (min. 2.2.4). The currently
-not released Grails 3.0 is out of scope.
+not released Grails 3.0 is out of scope but will be in scope as soon 
+as it is released.
 
 Since the plugin should be based on stable and released libraries, 0.7 is the 
 targeted Version of Spock.
