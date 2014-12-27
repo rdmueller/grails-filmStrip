@@ -15,6 +15,8 @@ The aim of this plugin is not only to help a tester in developing Geb/Spock test
 a report for your customer. With all those screenshot you can easily get an graphical overview of the application and
 see if all pages display correctly.
 
+image::./src/doc/images/Screenshot.png["Screenshot", align="center"]
+
 === Setup
 
 There is not much to do in order to use the plugin. Just configure it in your +BuildConfig.groovy+ and add the folowing line to your gebConfig.groovy:
@@ -22,3 +24,7 @@ There is not much to do in order to use the plugin. Just configure it in your +B
     reportingListener = new com.github.rdmueller.FilmStripReportingListener()
 
 If your geb ++reportDir++ is the standard one, the report will be generated after running ++grails test-app++.
+
+=== Documentation
+
+The documentation is currently located at https://github.com/rdmueller/grails-filmStrip/blob/master/src/doc/arc42-template.adoc .
