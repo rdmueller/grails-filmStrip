@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="Asciidoctor 0.1.4">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Film-Strip Grails Plugin</title>
+<link rel="stylesheet" href="./asciidoctor.css">
+</head>
+<body class="article toc2 toc-left">
+<div id="header">
+<h1>Film-Strip Grails Plugin</h1>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#section-introduction-and-goals">1. Introduction and Goals</a></li>
+<li>
+<ul class="sectlevel2">
+<li><a href="#_requirements_overview">1.1. Requirements Overview</a></li>
+<li><a href="#_quality_goals">1.2. Quality Goals</a></li>
+<li><a href="#_stakeholder">1.3. Stakeholder</a></li>
+</ul>
+</li>
+<li><a href="#section-architecture-constraints">2. Architecture Constraints</a></li>
+<li><a href="#section-system-scope-and-context">3. System Scope and Context</a></li>
+<li>
+<ul class="sectlevel2">
+<li><a href="#_external_interfaces">3.1. External Interfaces</a></li>
+</ul>
+</li>
+<li><a href="#section-solution-strategy">4. Solution Strategy</a></li>
+<li><a href="#section-design-decisions">5. Design Decisions</a></li>
+<li>
+<ul class="sectlevel2">
+<li><a href="#_data_collection">5.1. Data Collection</a></li>
+</ul>
+</li>
+<li><a href="#section-glossary">6. Glossary</a></li>
+<li><a href="#bibliography">Appendix A: References</a></li>
+<li><a href="#_other_projects_like_this_one">other projects like this one</a></li>
+<li>
+<ul class="sectlevel2">
+<li><a href="#_canoo_webtest">canoo WebTest</a></li>
+</ul>
+</li>
+<li><a href="#_example_reports">Appendix B: Example Reports</a></li>
+<li><a href="#_contributing">Appendix C: Contributing</a></li>
+<li><a href="#_open_issues">Appendix D: Open Issues</a></li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<style>
+.arc42help {font-size:small; width: 14px; height: 16px; overflow: hidden; position: absolute; right: 0px; padding: 2px 0px 3px 2px;}
+.arc42help::before {content: "?";}
+.arc42help:hover {width:auto; height: auto; z-index: 100; padding: 10px;}
+.arc42help:hover::before {content: "";}
+@media print {
+	.arc42help {display:hidden;}
+}
+</style>
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="./images/Screenshot.png" alt="Screenshot">
+</div>
+</div>
+<table class="tableblock frame-all grid-all" style="width:100%; ">
+<colgroup>
+<col style="width:20%;">
+<col style="width:80%;"> 
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="image"><a class="image" href="{arc42-url}"><img src="./images/arc42-logo.png" alt="arc42"></a></span></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="small">&#169; This document uses material from the <a href="http://arc42.de" target="_blank">arc42 architecture
+template</a>, freely available at  <a href="http://github.com/arc42">http://github.com/arc42</a>.</span><br>
+<span class="small">arc42 is open source and provided under the Creative Commons Sharealike 4.0 license.
+It comes <strong>without any guarantee</strong>. Use on your own risk.
+arc42 and its structure by Dr. Peter Hruschka and Dr. Gernot Starke.
+Asciidoc version initiated by Markus Schärtel and Jürgen Krey,
+completed and maintained by Ralf Müller and Gernot Starke.</span></p></td>
+</tr>
+</tbody>
+</table>
+
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+RDM: I used the arc42 template for the documentation of this plugin
+since it just helps a lot in writing documentation. It is not a perfect example for
+arc42, since the plugin is just a small project and does not need much architecture.
+See <a href="http://www.arc42.de">http://www.arc42.de</a>
+</td>
+</tr>
+</table>
+</div>
+<hr>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="section-introduction-and-goals">1. Introduction and Goals</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Geb and Spock is a great combination if you need to create functional tests for your Grails application.</p>
+</div>
+<div class="paragraph">
+<p>A not so well known feature is the <a href="http://www.gebish.org/manual/current/testing.html#reporting"><code>report</code></a> feature:<br>
+whenever you use the command <code>report "some text"</code>, geb tries to create a screenshot and save the current DOM as HTML.</p>
+</div>
+<div class="paragraph">
+<p>This plugin crawls through the generated screenshots and creates an HTML report which displays preview images as film strip
+on the bottom of the page and the test result on the main part of the window. When you click on an image, it will be displayed
+full size, if you click on the name of a report image, the corresponding HTML file will be displayed. Without the proper path
+to referenced files, this view will look broken, but it is very usefull for debugging.</p>
+</div>
+<div class="paragraph">
+<p>The aim of this plugin is not only to help a tester in developing Geb/Spock tests and see what went wrong, but also to create
+a report for your customer. With all those screenshot you can easily get an graphical overview of the application and
+see if all pages display correctly.</p>
+</div>
+<div class="sect2">
+<h3 id="_requirements_overview">1.1. Requirements Overview</h3>
+<table class="tableblock frame-all grid-all" style="width:100%; ">
+<colgroup>
+<col style="width:7%;">
+<col style="width:15%;">
+<col style="width:76%;"> 
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">ID</th>
+<th class="tableblock halign-left valign-top">Priority</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="R1"></a>R1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">high</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">the system has to produce an easy to navigate visual report
+				   containing all screenshots reported by geb</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="R2"></a>R2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">medium</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">the system has to be easy to use. Best would be install and
+                   run with some reasonable default configs</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="R3"></a>R3</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">medium</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">the system should be configurable in terms of html output
+                   and css style. Some kind of jsp template should be available</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="R4"></a>R4</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">low</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">no magic strings. All parameters like output directory should
+				   be configurable</p></td>
+</tr>
+</tbody>
+</table>
+
+</div>
+<div class="sect2">
+<h3 id="_quality_goals">1.2. Quality Goals</h3>
+<table class="tableblock frame-all grid-all" style="width:100%; ">
+<colgroup>
+<col style="width:14%;">
+<col style="width:85%;"> 
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">performance</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">since tests should run fast, performance is important. Report
+				 should be generated in less than 2 seconds</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">modifiability</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">every Grails developer should be able to modify the plugin in
+				 order to fit his needs</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">availability</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">plugin should be available through central plugin repository
+				 and as download</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">security</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">once installed, the plugin must not connect to the internet</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">testability</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">it would be nice if there where automated tests</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">usability</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">install and run with reasonable default configs. See <a href="#R2">[R2]</a></p></td>
+</tr>
+</tbody>
+</table>
+
+</div>
+<div class="sect2">
+<h3 id="_stakeholder">1.3. Stakeholder</h3>
+<div class="paragraph">
+<p>These are the stakeholder I (Ralf D. Müller) had in mind when I started to code
+this plugin and I am open for discussions :-)</p>
+</div>
+<table class="tableblock frame-all grid-all" style="width:100%; ">
+<colgroup>
+<col style="width:16%;">
+<col style="width:50%;">
+<col style="width:33%;"> 
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Role/Name</th>
+<th class="tableblock halign-left valign-top">Goal/Boundaries</th>
+<th class="tableblock halign-left valign-top">Expected Participation and Contribution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Developer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">wants to proof to BA that her
+				 software is covered with
+				 automated tests</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Need direct feedback from other developers through
+						  		   				  issue tracking or direct mail</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Business
+  Analyst (BA)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">wants to specify tests in
+  				 natural language and want to
+  				 be able to read test reports</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Hope for indirect feedback through developers</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Contractor</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">wants to proof to client
+                 that his software is
+                 thourougly tested and uses
+                 screenshot to have a proof
+                 for the look and feel at a
+                 certain point in time</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Hope for indirect feedback through developers</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Designer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">wants to see that his design
+                 is implemented the right way
+                 and may want to compare screens</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Hope for indirect feedback through developers</p></td>
+</tr>
+</tbody>
+</table>
+
+<div class="sect3">
+<h4 id="_personas">1.3.1. Personas</h4>
+<div class="paragraph">
+<p>The following section will describe some fictional stakeholder. The intention is
+to add some more to the stakeholder description above and to allow you to easily
+switch into the role of the stakeholder.</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Melanie Schmitt</dt>
+<dd>
+<p>Melanie works as a freelancer in the role of <strong>developer</strong>. She is used to write automated tests for her code. She would now like to use the test results as some kind acceptance report. When she delivers a release, the wants to have a report ready which can be signed of by the customer as soon as he accepts the delivered features.<br>
+She also made the experience that sometimes customers report a bug where it is not clear if it is really a bug or works as designed. Through a history of proper test reports with screenshots, she hopes to be able to easily prove that it&#8217;s not a bug but a change the customer has to pay for.<br>
+Those two features will help Melanie to be recognized as professional developer and optimize her effort/Value ratio.</p>
+</dd>
+<dt class="hdlist1">Peter Miller</dt>
+<dd>
+<p>Peter is a <strong>business analyst</strong> who works together with a team of developers on larger projects. He would like to specify automated tests but has not enough technical background to write test scripts. He also does not like to have a development environment up and running in order to run the tests be himself but he would like to have a good looking report which helps him to check if the tests have been executed in the intended way.+
+The goal for Peter is to write tests in natural language and hand them over to the developers. They will then turn them into executable tests and generate tests reports for each new release. The reports are handed back to Peter for an acceptance sign-off.</p>
+</dd>
+<dt class="hdlist1">Henry Ford</dt>
+<dd>
+<p>Henry is a <strong>developer</strong> who works together with Peter. Henry needs a way to add readable code to the natural language test description and combine both in a report. When Henry runs his tests, he can watch his web browser execute the tests and he sees if something looks wrong. But he also would like to have those screens as screenshots included in his report. In case that Peter complaints about a specific test in the generated report, the report should include enough detail for Henry to figure out what code has been executed for the test in order to easily see what&#8217;s going on.</p>
+</dd>
+<dt class="hdlist1">Steve Bauer</dt>
+<dd>
+<p>Steve is a <strong>designer</strong> who needs to make sure that his design guidelines are followed by the developers. He doesn&#8217;t care about the functionality of the application, only the screens. So he needs a report where he can flip through all screens and see if he can find a design flaw.</p>
+</dd>
+</dl>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="section-architecture-constraints">2. Architecture Constraints</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Since this plugin should be available to a wide range of developers, the plugin
+should be compatible with a wide range of Grails versions (min. 2.2.4). The currently
+not released Grails 3.0 is out of scope.</p>
+</div>
+<div class="paragraph">
+<p>Since the plugin should be based on stable and released libraries, 0.7 is the
+targeted Version of Spock.</p>
+</div>
+<div class="paragraph">
+<p>The plugin has to work on windows and *nix and it should work with all webdrivers
+which take screenshots, but it will only be tested against phantomJs.</p>
+</div>
+<div class="paragraph">
+<p>Since maps are easy to handle in groovy and grails, the generated data model should not
+be a complex java object, but a simple map.</p>
+</div>
+<div class="paragraph">
+<p>Whenever the map has to be serialized, JSON should be used a format with pretty print
+turned on. THis ensures that a developer is able to analyze the raw data.</p>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="section-system-scope-and-context">3. System Scope and Context</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The main scope of the project is to extract a model from the data generated by geb
+through the execution of <code>grails run-app functional</code>. In order to visualize the
+model, the plugin will also generate some HTML to browse through the data.</p>
+</div>
+<div class="paragraph">
+<p>Currently, data generated by spock is out of scope, but it is planned to take
+this in scope for the next iteration.</p>
+</div>
+<div class="sect2">
+<h3 id="_external_interfaces">3.1. External Interfaces</h3>
+<div class="paragraph">
+<p>Since the plugin should be easy to handle, it should use some automated way to gather the data.</p>
+</div>
+<div class="paragraph">
+<p>In order to do this, the following interfaces to Grails and Geb have been identified:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Event System</dt>
+<dd>
+<p>The plugin will hook into the reporting events in order to setup the collection of
+data (<code>eventTestPhasesStart</code>) and to generate the reports (<code>eventTestProduceReports</code>)</p>
+</dd>
+<dt class="hdlist1">Geb <code>ReportingListener</code></dt>
+<dd>
+<p>The ReportingListener has been identified as the right interface to Geb. It will
+notify the plugin every time the <code>report</code> command has been executed and will provide
+the needed data. Currently, no automated way has been identified to add the plugin&#8217;s
+oen <code>ReportingListener</code> to the <code>gebConfig</code> in an automated way, so the developer has
+add it by herself.</p>
+</dd>
+</dl>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="section-solution-strategy">4. Solution Strategy</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The plugin uses the <code>ReportingListener</code> provided by geb to collect the needed data.
+Since geb can only provide an <code>onReport</code>-method, it is hard to collect the data
+in memory. So the solution is to write the data from these report snapshots to a file
+as JSON strings.</p>
+</div>
+<div class="paragraph">
+<p>Later, when Grails notifies the plugin that all tests have been executed, the plugin
+will read those report snapshots and remove redundant information by generating a
+better structured map which is also stored as JSON in another report file (in case
+someone else want to base some functionality on this data).</p>
+</div>
+<div class="paragraph">
+<p>In the next step, the plugin takes the created data structure and feeds it as model
+into an HTML-Report-Template. Currently, this "template" is implemented as
+<code>xml.MarkupBuilder</code> but it will be soon replaced by a jsp like template which can
+be easily provided by the project the plugin is used in.</p>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="section-design-decisions">5. Design Decisions</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_data_collection">5.1. Data Collection</h3>
+<div class="sect3">
+<h4 id="_problem">5.1.1. Problem</h4>
+<div class="paragraph">
+<p>In order to create a report, we have to collect the data we want to report on.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_alternatives_and_solution_decision">5.1.2. Alternatives and Solution/Decision</h4>
+<div class="paragraph">
+<p>The first version of the FilmStrip-Plugin crawled through the generated screenshots and tried to extract all data from the the image name and its path.</p>
+</div>
+<div class="paragraph">
+<p>The current version uses a ReportListener to collect the data. The ReportListener gets some more information than the one available in the file system like the URL and name of page object.</p>
+</div>
+<div class="paragraph">
+<p>Since there is only an <code>onReport</code> event and no <code>onReportFinished</code> and because of the data provided, the data collection is a two step process:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>extract the needed data from the <code>onReport</code> event</p>
+</li>
+<li>
+<p>transform the result into a better structured map without redundancy</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>The data from step one is collected in a JSON formatted report file and read in step two from this file.</p>
+</div>
+<div class="paragraph">
+<p>The number together with the label of the test and report is made available as one String, joined together with dashed (<em>-</em>). So if the labels contain a dash themself, the labels will not be extracted the right way. To solve this, the <code>geb.report.ReporterSupport</code> got monkey patches through meta-programming.</p>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="section-glossary">6. Glossary</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This is mainly a glossary for Spock terms and how I do understand their meaning.
+Please correct it if I am wrong - RDM</p>
+</div>
+<table class="tableblock frame-all grid-all" style="width:100%; ">
+<colgroup>
+<col style="width:14%;">
+<col style="width:14%;">
+<col style="width:71%;"> 
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Term</th>
+<th class="tableblock halign-left valign-top">Synonym</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Spec</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specification</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A test specification which groups some tests together</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Feature</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Test</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A spec specifies features which have to be tested.
+                               Mostly exchangeable with "test", but some features need
+                               more than one test&#8230;</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Feature Run</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Iteration</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">When you define a data driven Spock test, each
+                               execution is called a feature run</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Report</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Snapshot</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The geb command to save the current browser page as
+                               image and HTML source is called <code>report</code> and hence
+                               the created snapshot is often called a report</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Report Group</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">a report group is a Geb concept. Spock automatically
+                               sets the report group to the name of the current
+                               Feature/Test and Geb will store all reports
+                               in a folder corresponding to this name.</p></td>
+</tr>
+</tbody>
+</table>
+
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="bibliography">Appendix A: References</h2>
+<div class="sectionbody">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Geb and the Book of Geb</dt>
+<dd>
+<p><a href="http://www.gebish.org/">http://www.gebish.org/</a> <a href="http://www.gebish.org/manual/current/">http://www.gebish.org/manual/current/</a></p>
+</dd>
+<dt class="hdlist1">Geb Plugin</dt>
+<dd>
+<p><a href="http://grails.org/plugin/geb">http://grails.org/plugin/geb</a></p>
+</dd>
+<dt class="hdlist1">Spock</dt>
+<dd>
+<p><a href="http://spockframework.org/">http://spockframework.org/</a></p>
+</dd>
+<dt class="hdlist1">Spock Plugin</dt>
+<dd>
+<p><a href="http://grails.org/plugin/spock">http://grails.org/plugin/spock</a></p>
+</dd>
+<dt class="hdlist1">Pet Clinic Sample Application</dt>
+<dd>
+<p><a href="https://github.com/grails-samples/grails-petclinic">https://github.com/grails-samples/grails-petclinic</a></p>
+</dd>
+<dt class="hdlist1">GhostDriver</dt>
+<dd>
+<p><a href="https://github.com/detro/ghostdriver">https://github.com/detro/ghostdriver</a></p>
+</dd>
+<dt class="hdlist1">PhantomJS</dt>
+<dd>
+<p><a href="http://phantomjs.org/">http://phantomjs.org/</a></p>
+</dd>
+<dt class="hdlist1">arc42</dt>
+<dd>
+<p><a href="http://arc42.org">http://arc42.org</a> (german) <a href="http://arc42.de/en">http://arc42.de/en</a> (english)</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_other_projects_like_this_one">other projects like this one</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In this section, references to other projects like this are collected. So if this
+project does not exactly fit your need, maybe one of the other does.</p>
+</div>
+<div class="sect2">
+<h3 id="_canoo_webtest">canoo WebTest</h3>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Grails Plugin</dt>
+<dd>
+<p><a href="http://grails.org/plugin/webtest">http://grails.org/plugin/webtest</a></p>
+</dd>
+<dt class="hdlist1">Website</dt>
+<dd>
+<p><a href="http://webtest.canoo.com/webtest/">http://webtest.canoo.com/webtest/</a></p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>Canoo WebTest is a great tool for functional tests and it provides the best
+reports I know. Screenshots are taken automatically, each time a button or link is
+clicked. Those screenshots are available as film strip like the one in this plugin.</p>
+</div>
+<div class="paragraph">
+<p>Unfortunately, it seem to be a bit outdated. It does not work with Spock since it is
+a test framework by its own and the Gails Plugin seems not to work with current
+versions of Grails</p>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_example_reports">Appendix B: Example Reports</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Currently there is only one example which is based on the Pet Clinic sample application.</p>
+</div>
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="./images/Screenshot.png" alt="Screenshot">
+</div>
+</div>
+<div class="paragraph">
+<p>the report can be found at</p>
+</div>
+<div class="paragraph">
+<p>TODO:</p>
+</div>
+<div class="paragraph">
+<p>add the corresponding version of the Pet Clinic can be found at</p>
+</div>
+<div class="paragraph">
+<p>TODO:</p>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_contributing">Appendix C: Contributing</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Contributions are welcome. The quality and form does not matter. If you don&#8217;t have
+much time, just drop me a note (ralf.d.mueller at gmail.com) or
+<a href="https://github.com/rdmueller/grails-filmStrip/issues">add an issue</a>.</p>
+</div>
+<div class="paragraph">
+<p>If you have more time and want to contribute to the code, just fork the project
+and create a pull request when ever you contribution is ready.</p>
+</div>
+<div class="paragraph">
+<p>The easiest way to work on the project is to fork both, this repository and the
+film strip fork of the petclinic project. Place them on the same level and the
+petclinic project will already be configured to reference the film strip plugin
+locally - this avoids having to build the plugin whenever you modify it.</p>
+</div>
+<div class="paragraph">
+<p>Currently, there are no automated tests. So you are also not required to create tests :-).</p>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_open_issues">Appendix D: Open Issues</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In order to work offline on this project, all open issues are collected in this
+document. But if you want to open a new issue, just add it to the github issues
+located at <a href="https://github.com/rdmueller/grails-filmStrip/issues">https://github.com/rdmueller/grails-filmStrip/issues</a> . The ultimate
+goal is to sync these offline issues with the github ones. An intermediate goal
+would be to export the github issues to this document in order to maintain the
+issues online but always have an offline copy.</p>
+</div>
+<table class="tableblock frame-all grid-all" style="width:100%; ">
+<colgroup>
+<col style="width:8%;">
+<col style="width:8%;">
+<col style="width:83%;"> 
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">ID</th>
+<th class="tableblock halign-left valign-top">State</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FS-1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">closed</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">asciidoc: how to reference Requirements the right way. something like <a href="#R2">[R2]</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FS-2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">closed</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">a <em>-</em> in a test or report label is a problem because it is also used as
+                 delimiter in the reports labels</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FS-3</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">started</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">need an example report. let&#8217;s base it on the petclinic and deploy on
+                 github. has to be referenced from this documentations appendix</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FS-4</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">open</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">add some profile "fotos" to each persona. There is this cool
+                 avatar genrator which might be used.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FS-5</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">closed</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">we now have a quite customized gebConfig.groovy. The plugin has
+                 to make sure that it is used&#8230;</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FS-6</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">open</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">packages are currently not supported &#8658; document this</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FS-7</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">open</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">End-Reports are currently not shown. The intended behaviour is
+                 that they are only not shown when the content is the same as of
+                 the report before. This can be achieved by comparing the reported HTML</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FS-8</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">open</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Replace monkey patch with a better solution. Solution proposed
+                 by Marcin Erdmann: extend GebReportingSpec.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FS-9</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">open</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Want to have a button with which I can flip through all screens</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FS-10</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">open</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">It would be nice to find an automated way to add the
+                 <code>FileStripReportingListener</code> to the <code>gebConfig</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FS-11</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">open</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">finish documentation</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FS-12</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">open</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">compare created arc42 documentation with docs of the 10 best plugins</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FS-13</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">open</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">create the same functionality as gradle project, later plugin</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FS-14</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">open</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">see FS-6 : Packages are important, so implement them</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FS-15</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">open</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">upload the petclinic report to github.io and add it to the examples section</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FS-16</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">open</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">add contributions section to documentation</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FS-17</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">open</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">upload the HTML-Version of this documentation to github.io and
+                 reference it from readme</p></td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2014-12-20 11:42:05 CET
+</div>
+</div>
+</body>
+</html>
