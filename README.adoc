@@ -17,7 +17,7 @@ see if all pages display correctly.
 
 image::./src/doc/images/Screenshot.png["Screenshot", align="center"]
 
-=== Setup
+=== Setup / Usage
 
 There is not much to do in order to use the plugin. Just configure it in your +BuildConfig.groovy+ and add the folowing line to your gebConfig.groovy:
 
@@ -27,4 +27,6 @@ If your geb ++reportDir++ is the standard one, the report will be generated afte
 
 === Documentation
 
-The documentation is currently located at https://github.com/rdmueller/grails-filmStrip/blob/master/src/doc/arc42-template.adoc .
+The documentation is currently located at http://rdmueller.github.io/grails-filmStrip/ . 
+
+The source for the documentation can be found at https://github.com/rdmueller/grails-filmStrip/blob/master/src/doc/arc42-template.adoc .
