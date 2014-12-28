@@ -18,7 +18,7 @@ target(githubIssues2AsciiDoc: "fetch github issues and render them as asciidoc")
 |ID    |State  | Description
 ''')
     issues.each { issue ->
-        out.append("|${issue.url}[FS-${issue.number}] | ${issue.state} | ${issue.title}\n")
+        out.append("|${issue.html_url}[FS-${issue.number}] | ${issue.state} | ${issue.title}\n")
     }
     out.append('''|====
 ''')
