@@ -311,7 +311,8 @@ The goal for Peter is to write tests in natural language and hand them over to t
 <div class="paragraph">
 <p>Since this plugin should be available to a wide range of developers, the plugin
 should be compatible with a wide range of Grails versions (min. 2.2.4). The currently
-not released Grails 3.0 is out of scope.</p>
+not released Grails 3.0 is out of scope but will be in scope as soon
+as it is released.</p>
 </div>
 <div class="paragraph">
 <p>Since the plugin should be based on stable and released libraries, 0.7 is the
@@ -630,12 +631,11 @@ locally - this avoids having to build the plugin whenever you modify it.</p>
 <h2 id="_open_issues">Appendix D: Open Issues</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In order to work offline on this project, all open issues are collected in this
-document. But if you want to open a new issue, just add it to the github issues
+<p>In order to work offline on this project, all open issues are exported to this
+document whenever it is updated.
+But if you want to open a new issue, just add it to the github issues
 located at <a href="https://github.com/rdmueller/grails-filmStrip/issues">https://github.com/rdmueller/grails-filmStrip/issues</a> . The ultimate
-goal is to sync these offline issues with the github ones. An intermediate goal
-would be to export the github issues to this document in order to maintain the
-issues online but always have an offline copy.</p>
+goal is to sync these offline issues with the github ones.</p>
 </div>
 <table class="tableblock frame-all grid-all" style="width:100%; ">
 <colgroup>
@@ -652,98 +652,84 @@ issues online but always have an offline copy.</p>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">FS-1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">closed</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">asciidoc: how to reference Requirements the right way. something like <a href="#R2">[R2]</a></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">FS-2</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">closed</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">a <em>-</em> in a test or report label is a problem because it is also used as
-                 delimiter in the reports labels</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">FS-3</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">started</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">need an example report. let&#8217;s base it on the petclinic and deploy on
-                 github. has to be referenced from this documentations appendix</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">FS-4</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">open</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">add some profile "fotos" to each persona. There is this cool
-                 avatar genrator which might be used.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">FS-5</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">closed</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">we now have a quite customized gebConfig.groovy. The plugin has
-                 to make sure that it is used&#8230;</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">FS-6</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">open</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">packages are currently not supported &#8658; document this</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">FS-7</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">open</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">End-Reports are currently not shown. The intended behaviour is
-                 that they are only not shown when the content is the same as of
-                 the report before. This can be achieved by comparing the reported HTML</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">FS-8</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">open</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Replace monkey patch with a better solution. Solution proposed
-                 by Marcin Erdmann: extend GebReportingSpec.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">FS-9</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">open</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Want to have a button with which I can flip through all screens</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">FS-10</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">open</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">It would be nice to find an automated way to add the
-                 <code>FileStripReportingListener</code> to the <code>gebConfig</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">FS-11</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">open</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">finish documentation</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">FS-12</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">open</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">compare created arc42 documentation with docs of the 10 best plugins</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">FS-13</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">open</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">create the same functionality as gradle project, later plugin</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">FS-14</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">open</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">see FS-6 : Packages are important, so implement them</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">FS-15</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">open</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">upload the petclinic report to github.io and add it to the examples section</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">FS-16</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://api.github.com/repos/rdmueller/grails-filmStrip/issues/22">FS-22</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">open</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">add contributions section to documentation</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">FS-17</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://api.github.com/repos/rdmueller/grails-filmStrip/issues/21">FS-21</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">open</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">upload the HTML-Version of this documentation to github.io and
-                 reference it from readme</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">upload the petclinic report to github.io and add it to the examples section</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://api.github.com/repos/rdmueller/grails-filmStrip/issues/20">FS-20</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">open</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">see FS #12 : Packages are important, so implement them</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://api.github.com/repos/rdmueller/grails-filmStrip/issues/19">FS-19</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">open</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">create the same functionality as gradle project, later plugin</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://api.github.com/repos/rdmueller/grails-filmStrip/issues/18">FS-18</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">open</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">compare created arc42 documentation with docs of the 10 best plugins</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://api.github.com/repos/rdmueller/grails-filmStrip/issues/17">FS-17</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">open</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">finish documentation</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://api.github.com/repos/rdmueller/grails-filmStrip/issues/16">FS-16</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">open</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">It would be nice to find an automated way to add the FileStripReportingListener to the gebConfig</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://api.github.com/repos/rdmueller/grails-filmStrip/issues/15">FS-15</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">open</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Want to have a button with which I can flip through all screens</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://api.github.com/repos/rdmueller/grails-filmStrip/issues/14">FS-14</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">open</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Replace monkey patch with a better solution. Solution proposed by Marcin Erdmann: extend GebReportingSpec.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://api.github.com/repos/rdmueller/grails-filmStrip/issues/13">FS-13</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">open</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">End-Reports are currently not shown. The intended behaviour is that they are only not shown when the content is the same as of the report before. This can be achieved by comparing the reported HTML</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://api.github.com/repos/rdmueller/grails-filmStrip/issues/12">FS-12</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">open</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">packages are currently not supported ⇒ document this</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://api.github.com/repos/rdmueller/grails-filmStrip/issues/10">FS-10</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">open</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">add some profile "fotos" to each persona. There is this cool avatar genrator which might be used.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://api.github.com/repos/rdmueller/grails-filmStrip/issues/9">FS-9</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">open</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Create a Demo-Report</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://api.github.com/repos/rdmueller/grails-filmStrip/issues/8">FS-8</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">open</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Report is also generated if only unit or integration tests are executed</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://api.github.com/repos/rdmueller/grails-filmStrip/issues/7">FS-7</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">open</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">location of the report folder</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://api.github.com/repos/rdmueller/grails-filmStrip/issues/6">FS-6</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">open</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TESTS-TestSuites.xml</p></td>
 </tr>
 </tbody>
 </table>
@@ -753,7 +739,7 @@ issues online but always have an offline copy.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2014-12-20 11:42:05 CET
+Last updated 2014-12-27 22:37:44 CET
 </div>
 </div>
 </body>
