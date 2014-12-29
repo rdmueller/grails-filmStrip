@@ -4,9 +4,9 @@
 == Open Issues
 
 In order to work offline on this project, all open issues are exported to this
-document whenever it is updated. 
-But if you want to open a new issue, just add it to the github issues 
+document whenever it is updated.
+But if you want to open a new issue, just add it to the github issues
 located at https://github.com/rdmueller/grails-filmStrip/issues . The ultimate
-goal is to sync these offline issues with the github ones. 
+goal is to sync these offline issues with the github ones.
 
 include::../generated/issues.adoc[]

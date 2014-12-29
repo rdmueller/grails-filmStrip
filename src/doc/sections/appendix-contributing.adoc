@@ -3,8 +3,8 @@
 [appendix]
 == Contributing
 
-Contributions are welcome. The quality and form does not matter. If you don't have 
-much time, just drop me a note (ralf.d.mueller at gmail.com) or 
+Contributions are welcome. The quality and form does not matter. If you don't have
+much time, just drop me a note (ralf.d.mueller at gmail.com) or
 https://github.com/rdmueller/grails-filmStrip/issues[add an issue].
 
 If you have more time and want to contribute to the code, just fork the project

@@ -3,8 +3,9 @@ import grails.converters.*
 target(convertJsonReport: "Script to convert ouput from geb.ReportingListener into something structured") {
     def reportsDir = "target/test-reports/geb/"
     def thisPath = new File('.').canonicalPath.replaceAll('\\\\','/')
-    def gebReports = new File(reportsDir+"gebReportInfo.json").text.replaceAll('\\\\','/')
+    def gebReports = new File(reportsDir, "gebReportInfo.json").text.replaceAll('\\\\','/')
     def allReports = [specs:[]]
+
     gebReports.eachLine { json ->
         def reportLine = JSON.parse(json)
         if (!(reportLine.spec.label in allReports.specs.label)) {
@@ -32,8 +33,8 @@ target(convertJsonReport: "Script to convert ouput from geb.ReportingListener in
             report.files += reportLine.spec.test.report.files.collect{"."+it.replaceAll('//','/')-thisPath-reportsDir}
         }
     }
+
     def newJson = allReports as JSON
     newJson.prettyPrint = true
-    new File(reportsDir+"gebReportInfo2.json").write(newJson.toString())
-
+    new File(reportsDir, "gebReportInfo2.json").write(newJson.toString())
 }

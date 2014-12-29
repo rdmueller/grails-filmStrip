@@ -4,14 +4,14 @@
 Geb and Spock is a great combination if you need to create functional tests for your Grails application.
 
 A not so well known feature is the http://www.gebish.org/manual/current/testing.html#reporting[++report++] feature: +
-whenever you use the command ++report "some text"++, geb tries to create a screenshot and save the current DOM as HTML. 
+whenever you use the command ++report "some text"++, geb tries to create a screenshot and save the current DOM as HTML.
 
 This plugin crawls through the generated screenshots and creates an HTML report which displays preview images as film strip
 on the bottom of the page and the test result on the main part of the window. When you click on an image, it will be displayed
 full size, if you click on the name of a report image, the corresponding HTML file will be displayed. Without the proper path
 to referenced files, this view will look broken, but it is very usefull for debugging.
 
-The aim of this plugin is not only to help a tester in developing Geb/Spock tests and see what went wrong, but also to create 
+The aim of this plugin is not only to help a tester in developing Geb/Spock tests and see what went wrong, but also to create
 a report for your customer. With all those screenshot you can easily get an graphical overview of the application and
 see if all pages display correctly.
 
@@ -20,13 +20,13 @@ see if all pages display correctly.
 [options="header",cols="1,2,10"]
 |===
 |ID       |Priority | Description
-|[[R1]]R1 |high     | the system has to produce an easy to navigate visual report 
+|[[R1]]R1 |high     | the system has to produce an easy to navigate visual report
 				   containing all screenshots reported by geb
-|[[R2]]R2 |medium   | the system has to be easy to use. Best would be install and 
+|[[R2]]R2 |medium   | the system has to be easy to use. Best would be install and
                    run with some reasonable default configs
-|[[R3]]R3 |medium   | the system should be configurable in terms of html output 
+|[[R3]]R3 |medium   | the system should be configurable in terms of html output
                    and css style. Some kind of jsp template should be available
-|[[R4]]R4 |low      | no magic strings. All parameters like output directory should 
+|[[R4]]R4 |low      | no magic strings. All parameters like output directory should
 				   be configurable
 |===
 
@@ -35,14 +35,14 @@ see if all pages display correctly.
 [options="header",cols="1,6"]
 |===
 |Type          | Description
-|performance   | since tests should run fast, performance is important. Report 
-				 should be generated in less than 2 seconds										 
-|modifiability | every Grails developer should be able to modify the plugin in 
-				 order to fit his needs																				 
-|availability  | plugin should be available through central plugin repository 
-				 and as download																						 
-|security	   | once installed, the plugin must not connect to the internet   
-|testability   | it would be nice if there where automated tests               
+|performance   | since tests should run fast, performance is important. Report
+				 should be generated in less than 2 seconds
+|modifiability | every Grails developer should be able to modify the plugin in
+				 order to fit his needs
+|availability  | plugin should be available through central plugin repository
+				 and as download
+|security	   | once installed, the plugin must not connect to the internet
+|testability   | it would be nice if there where automated tests
 |usability     | install and run with reasonable default configs. See <<R2>>
 |===
 
@@ -71,7 +71,7 @@ this plugin and I am open for discussions :-)
 | Designer     | wants to see that his design
                  is implemented the right way
                  and may want to compare screens| Hope for indirect feedback through developers
-|=== 					 				  															  
+|===
 
 ==== Personas
 

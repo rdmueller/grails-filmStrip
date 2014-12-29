@@ -21,7 +21,7 @@ project does not exactly fit your need, maybe one of the other does.
 === canoo WebTest
 
 Grails Plugin:: http://grails.org/plugin/webtest
-Website:: http://webtest.canoo.com/webtest/ 
+Website:: http://webtest.canoo.com/webtest/
 
 Canoo WebTest is a great tool for functional tests and it provides the best
 reports I know. Screenshots are taken automatically, each time a button or link is

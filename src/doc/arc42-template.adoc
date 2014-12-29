@@ -77,4 +77,3 @@ include::sections/appendix-contributing.adoc[]
 
 <<<<
 include::sections/appendix-openissues.adoc[]
-        
