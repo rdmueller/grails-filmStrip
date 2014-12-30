@@ -2,16 +2,16 @@
 == Glossary
 
 This is mainly a glossary for Spock terms and how I do understand their meaning.
-Please correct it if I am wrong - RDM 
+Please correct it if I am wrong - RDM
 
 [options="header", cols="1,1,5"]
 |===
-| Term       | Synonym       | Description 
-| Spec       | Specification | A test specification which groups some tests together 
-| Feature    | Test          | A spec specifies features which have to be tested. 
-                               Mostly exchangeable with "test", but some features need 
+| Term       | Synonym       | Description
+| Spec       | Specification | A test specification which groups some tests together
+| Feature    | Test          | A spec specifies features which have to be tested.
+                               Mostly exchangeable with "test", but some features need
                                more than one test...
-| Feature Run| Iteration     | When you define a data driven Spock test, each 
+| Feature Run| Iteration     | When you define a data driven Spock test, each
                                execution is called a feature run
 | Report     | Snapshot      | The geb command to save the current browser page as
                                image and HTML source is called +report+ and hence

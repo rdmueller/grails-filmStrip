@@ -9,8 +9,8 @@ image::../images/Screenshot.png["Screenshot", align="center"]
 
 the report can be found at
 
-TODO: 
+TODO:
 
 add the corresponding version of the Pet Clinic can be found at
 
-TODO: 
+TODO:

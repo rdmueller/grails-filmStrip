@@ -13,7 +13,7 @@ The first version of the FilmStrip-Plugin crawled through the generated screensh
 
 The current version uses a ReportListener to collect the data. The ReportListener gets some more information than the one available in the file system like the URL and name of page object.
 
-Since there is only an +onReport+ event and no +onReportFinished+ and because of the data provided, the data collection is a two step process: 
+Since there is only an +onReport+ event and no +onReportFinished+ and because of the data provided, the data collection is a two step process:
 
 . extract the needed data from the +onReport+ event
 . transform the result into a better structured map without redundancy
