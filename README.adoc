@@ -21,7 +21,7 @@ image::./src/doc/images/Screenshot.png["Screenshot", align="center"]
 
 There is not much to do in order to use the plugin. Just configure it in your +BuildConfig.groovy+ and add the folowing line to your gebConfig.groovy:
 
-    reportingListener = new com.github.rdmueller.FilmStripReportingListener()
+    reportingListener = new grails.plugin.filmstrip.FilmStripReportingListener()
 
 If your geb ++reportDir++ is the standard one, the report will be generated after running ++grails test-app++.
 

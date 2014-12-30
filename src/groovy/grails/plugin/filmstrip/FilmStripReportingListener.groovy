@@ -1,4 +1,4 @@
-package com.github.rdmueller
+package grails.plugin.filmstrip
 
 import geb.report.ReportState
 import geb.report.Reporter
