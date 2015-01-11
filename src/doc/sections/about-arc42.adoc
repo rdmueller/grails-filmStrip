@@ -15,4 +15,4 @@ completed and maintained by Ralf Müller and Gernot Starke.#
 NOTE: RDM: I used the arc42 template for the documentation of this plugin
 since it just helps a lot in writing documentation. It is not a perfect example for
 arc42, since the plugin is just a small project and does not need much architecture.
-See http://www.arc42.de
+See http://www.arc42.de for better examples :-)

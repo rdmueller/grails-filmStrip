@@ -13,7 +13,7 @@ GhostDriver:: https://github.com/detro/ghostdriver
 PhantomJS:: http://phantomjs.org/
 arc42:: http://arc42.org (german) http://arc42.de/en (english)
 
-== other projects like this one
+== Similiar Projects
 
 In this section, references to other projects like this are collected. So if this
 project does not exactly fit your need, maybe one of the other does.
@@ -27,6 +27,6 @@ Canoo WebTest is a great tool for functional tests and it provides the best
 reports I know. Screenshots are taken automatically, each time a button or link is
 clicked. Those screenshots are available as film strip like the one in this plugin.
 
-Unfortunately, it seem to be a bit outdated. It does not work with Spock since it is
+Unfortunately, it seems to be a bit outdated. It does not work with Spock since it is
 a test framework by its own and the Gails Plugin seems not to work with current
 versions of Grails

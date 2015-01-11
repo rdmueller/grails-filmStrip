@@ -1,18 +1,27 @@
 [[section-introduction-and-goals]]
 == Introduction and Goals
 
-Geb and Spock is a great combination if you need to create functional tests for your Grails application.
+Geb -- together with Spock -- is a great combination if you need to create functional tests for your Grails application.
+But the output is basically just the information that the tests succeeded -- at least when there was no failure :-) +
+Out of the box, it does not report on *what* has been tested. If you want to get details about the tests, you are
+expected to read the sources.
 
-A not so well known feature is the http://www.gebish.org/manual/current/testing.html#reporting[++report++] feature: +
+A not so well known feature of Geb is the http://www.gebish.org/manual/current/testing.html#reporting[++report++] feature: +
 whenever you use the command ++report "some text"++, geb tries to create a screenshot and save the current DOM as HTML.
 
-This plugin crawls through the generated screenshots and creates an HTML report which displays preview images as film strip
-on the bottom of the page and the test result on the main part of the window. When you click on an image, it will be displayed
-full size, if you click on the name of a report image, the corresponding HTML file will be displayed. Without the proper path
-to referenced files, this view will look broken, but it is very usefull for debugging.
+This plugin crawls through the generated screenshots and creates an HTML report
+which displays preview images as film strip at the top of the report-page and the
+test-result on the main part of the window. When you click on an image, it will be displayed
+in full size, if you click on the name of a report image, the corresponding HTML
+file will be displayed. Without the proper path to referenced files, this view will
+look broken, but it is still useful for debugging. When you click on the small star
+in front of the name, the link will take you to the recorded original URL of this test --
+so if your project is running, you will be taken to the right page on your web server
+and you can manually verify what happened.
 
-The aim of this plugin is not only to help a tester in developing Geb/Spock tests and see what went wrong, but also to create
-a report for your customer. With all those screenshot you can easily get an graphical overview of the application and
+The aim of this plugin is not only to help a tester in developing Geb/Spock tests
+and see what went wrong, but also to create a report for your customer. With all
+those screenshot you can easily get an graphical overview of the application and
 see if all pages display correctly.
 
 === Requirements Overview
