@@ -1,6 +1,13 @@
 :numbered!:
 
 [appendix]
+
+== Contributors
+
+* Macin Erdmann - thoughts about monkey patch
+* Burth Beckwith - cleanup of plugin code
+* Peter Ledbrook - tipps on how to fix the plugin for grails 2.4.4
+
 == Contributing
 
 Contributions are welcome. The quality and form does not matter. If you don't have

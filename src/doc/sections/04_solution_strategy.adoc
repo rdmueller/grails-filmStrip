@@ -3,13 +3,14 @@
 
 The plugin uses the +ReportingListener+ provided by geb to collect the needed data.
 Since geb can only provide an +onReport+-method, it is hard to collect the data
-in memory. So the solution is to write the data from these report snapshots to a file
-as JSON strings.
+in memory (there is no event fired by Geb which tells the plugin that all reports
+have been collected and data can be persisted). So the solution is to write the
+data from these report snapshots to a file as JSON strings.
 
 Later, when Grails notifies the plugin that all tests have been executed, the plugin
 will read those report snapshots and remove redundant information by generating a
 better structured map which is also stored as JSON in another report file (in case
-someone else want to base some functionality on this data).
+someone else wants to base some functionality on this data).
 
 In the next step, the plugin takes the created data structure and feeds it as model
 into an HTML-Report-Template. Currently, this "template" is implemented as
