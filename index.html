@@ -16,9 +16,10 @@
 <li><a href="#section-introduction-and-goals">1. Introduction and Goals</a></li>
 <li>
 <ul class="sectlevel2">
-<li><a href="#_requirements_overview">1.1. Requirements Overview</a></li>
-<li><a href="#_quality_goals">1.2. Quality Goals</a></li>
-<li><a href="#_stakeholder">1.3. Stakeholder</a></li>
+<li><a href="#_quickstart">1.1. Quickstart</a></li>
+<li><a href="#_requirements_overview">1.2. Requirements Overview</a></li>
+<li><a href="#_quality_goals">1.3. Quality Goals</a></li>
+<li><a href="#_stakeholders">1.4. Stakeholders</a></li>
 </ul>
 </li>
 <li><a href="#section-architecture-constraints">2. Architecture Constraints</a></li>
@@ -33,6 +34,7 @@
 <li>
 <ul class="sectlevel2">
 <li><a href="#_data_collection">5.1. Data Collection</a></li>
+<li><a href="#_monkey_patching">5.2. Monkey Patching</a></li>
 </ul>
 </li>
 <li><a href="#section-glossary">6. Glossary</a></li>
@@ -44,7 +46,8 @@
 </ul>
 </li>
 <li><a href="#_example_reports">Appendix B: Example Reports</a></li>
-<li><a href="#_contributing">Appendix C: Contributing</a></li>
+<li><a href="#_contributors">Appendix C: Contributors</a></li>
+<li><a href="#_contributing">Contributing</a></li>
 <li><a href="#_open_issues">Appendix D: Open Issues</a></li>
 </ul>
 </div>
@@ -119,7 +122,7 @@ whenever you use the command <code>report "some text"</code>, geb tries to creat
 </div>
 <div class="paragraph">
 <p>This plugin crawls through the generated screenshots and creates an HTML report
-which displays preview images as film strip at the top of the report-page and the
+which displays preview images as a film strip at the top of the report-page and the
 test-result on the main part of the window. When you click on an image, it will be displayed
 in full size, if you click on the name of a report image, the corresponding HTML
 file will be displayed. Without the proper path to referenced files, this view will
@@ -130,11 +133,36 @@ and you can manually verify what happened.</p>
 <div class="paragraph">
 <p>The aim of this plugin is not only to help a tester in developing Geb/Spock tests
 and see what went wrong, but also to create a report for your customer. With all
-those screenshot you can easily get an graphical overview of the application and
+those screenshots you can easily get an graphical overview of the application and
 see if all pages display correctly.</p>
 </div>
 <div class="sect2">
-<h3 id="_requirements_overview">1.1. Requirements Overview</h3>
+<h3 id="_quickstart">1.1. Quickstart</h3>
+<div class="paragraph">
+<p>There is not much to do in order to use the plugin. Just configure it in your <code>BuildConfig.groovy</code></p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>test ':film-strip:0.1.1'</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>and add the folowing line to your gebConfig.groovy:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>reportingListener = new grails.plugin.filmstrip.FilmStripReportingListener()</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If your geb reportDir is the standard one, the report will be generated after running grails test-app.</p>
+</div>
+<div class="paragraph">
+<p>You will find the generated report in <code>target/test-reports/geb</code></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_requirements_overview">1.2. Requirements Overview</h3>
 <table class="tableblock frame-all grid-all" style="width:100%; ">
 <colgroup>
 <col style="width:7%;">
@@ -178,7 +206,7 @@ see if all pages display correctly.</p>
 
 </div>
 <div class="sect2">
-<h3 id="_quality_goals">1.2. Quality Goals</h3>
+<h3 id="_quality_goals">1.3. Quality Goals</h3>
 <table class="tableblock frame-all grid-all" style="width:100%; ">
 <colgroup>
 <col style="width:14%;">
@@ -223,9 +251,9 @@ see if all pages display correctly.</p>
 
 </div>
 <div class="sect2">
-<h3 id="_stakeholder">1.3. Stakeholder</h3>
+<h3 id="_stakeholders">1.4. Stakeholders</h3>
 <div class="paragraph">
-<p>These are the stakeholder I (Ralf D. Müller) had in mind when I started to code
+<p>These are the stakeholders I (Ralf D. Müller) had in mind when I started to code
 this plugin and I am open for discussions :-)</p>
 </div>
 <table class="tableblock frame-all grid-all" style="width:100%; ">
@@ -254,7 +282,7 @@ this plugin and I am open for discussions :-)</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Business
   Analyst (BA)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">wants to specify tests in
-  				 natural language and want to
+  				 natural language and wants to
   				 be able to read test reports</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Hope for indirect feedback through developers</p></td>
 </tr>
@@ -279,28 +307,28 @@ this plugin and I am open for discussions :-)</p>
 </table>
 
 <div class="sect3">
-<h4 id="_personas">1.3.1. Personas</h4>
+<h4 id="_personas">1.4.1. Personas</h4>
 <div class="paragraph">
-<p>The following section will describe some fictional stakeholder. The intention is
+<p>The following section will describe some fictional stakeholders. The intention is
 to add some more to the stakeholder description above and to allow you to easily
-switch into the role of the stakeholder.</p>
+switch into the role of a stakeholder.</p>
 </div>
 <div class="dlist">
 <dl>
 <dt class="hdlist1">Melanie Schmitt</dt>
 <dd>
-<p>Melanie works as a freelancer in the role of <strong>developer</strong>. She is used to write automated tests for her code. She would now like to use the test results as some kind acceptance report. When she delivers a release, the wants to have a report ready which can be signed of by the customer as soon as he accepts the delivered features.<br>
-She also made the experience that sometimes customers report a bug where it is not clear if it is really a bug or works as designed. Through a history of proper test reports with screenshots, she hopes to be able to easily prove that it&#8217;s not a bug but a change the customer has to pay for.<br>
+<p>Melanie works as a freelancer in the role of a <strong>developer</strong>. She is used to write automated tests for her code. She would now like to use the test results as some kind of acceptance report. When she delivers a release, she wants to have a report ready which can be signed of by the customer as soon as he accepts the delivered features.<br>
+She also made the experience that sometimes customers report a bug where it is not clear if it is really a bug or works as designed. Through a history of proper test reports with screenshots, she hopes to be able to easily prove that it&#8217;s not a bug but a change the customer has to pay for (because it was this way all the time).<br>
 Those two features will help Melanie to be recognized as professional developer and optimize her effort/Value ratio.</p>
 </dd>
 <dt class="hdlist1">Peter Miller</dt>
 <dd>
-<p>Peter is a <strong>business analyst</strong> who works together with a team of developers on larger projects. He would like to specify automated tests but has not enough technical background to write test scripts. He also does not like to have a development environment up and running in order to run the tests be himself but he would like to have a good looking report which helps him to check if the tests have been executed in the intended way.+
+<p>Peter is a <strong>business analyst</strong> who works together with a team of developers on larger projects. He would like to specify automated tests but has not enough technical background to write test scripts. He also does not like to have a development environment up and running in order to run the tests by himself but he would like to have a good looking report which helps him to check if the tests have been executed in the intended way.<br>
 The goal for Peter is to write tests in natural language and hand them over to the developers. They will then turn them into executable tests and generate tests reports for each new release. The reports are handed back to Peter for an acceptance sign-off.</p>
 </dd>
 <dt class="hdlist1">Henry Ford</dt>
 <dd>
-<p>Henry is a <strong>developer</strong> who works together with Peter. Henry needs a way to add readable code to the natural language test description and combine both in a report. When Henry runs his tests, he can watch his web browser execute the tests and he sees if something looks wrong. But he also would like to have those screens as screenshots included in his report. In case that Peter complaints about a specific test in the generated report, the report should include enough detail for Henry to figure out what code has been executed for the test in order to easily see what&#8217;s going on.</p>
+<p>Henry is a <strong>developer</strong> who works together with Peter. Henry needs a way to add readable code to the natural language test description (received from Peter) and combine both in a report. When Henry runs his tests, he can watch his web browser execute the tests and he sees if something looks wrong. But he also would like to have those screens as screenshots included in his report. In case that Peter complains about a specific test in the generated report, the report should include enough detail for Henry to figure out what code has been executed for the test in order to easily see what&#8217;s going on.</p>
 </dd>
 <dt class="hdlist1">Steve Bauer</dt>
 <dd>
@@ -335,8 +363,8 @@ which take screenshots, but it will only be tested against phantomJs.</p>
 be a complex java object, but a simple map.</p>
 </div>
 <div class="paragraph">
-<p>Whenever the map has to be serialized, JSON should be used a format with pretty print
-turned on. THis ensures that a developer is able to analyze the raw data.</p>
+<p>Whenever the map has to be serialized, JSON should be used as format with pretty print
+turned on. This ensures that a developer is able to analyze the raw data.</p>
 </div>
 <div style="page-break-after: always;"></div>
 </div>
@@ -368,13 +396,13 @@ this in scope for the next iteration.</p>
 <p>The plugin will hook into the reporting events in order to setup the collection of
 data (<code>eventTestPhasesStart</code>) and to generate the reports (<code>eventTestProduceReports</code>)</p>
 </dd>
-<dt class="hdlist1">Geb <code>ReportingListener</code></dt>
+<dt class="hdlist1">Geb <a href="http://www.gebish.org/manual/0.9.2/api/geb/report/ReportingListener.html"><code>ReportingListener</code></a></dt>
 <dd>
 <p>The ReportingListener has been identified as the right interface to Geb. It will
 notify the plugin every time the <code>report</code> command has been executed and will provide
 the needed data. Currently, no automated way has been identified to add the plugin&#8217;s
-oen <code>ReportingListener</code> to the <code>gebConfig</code> in an automated way, so the developer has
-add it by herself.</p>
+own <code>ReportingListener</code> to the <code>gebConfig</code> in an automated way, so the developer has
+to add it by herself.</p>
 </dd>
 </dl>
 </div>
@@ -388,14 +416,15 @@ add it by herself.</p>
 <div class="paragraph">
 <p>The plugin uses the <code>ReportingListener</code> provided by geb to collect the needed data.
 Since geb can only provide an <code>onReport</code>-method, it is hard to collect the data
-in memory. So the solution is to write the data from these report snapshots to a file
-as JSON strings.</p>
+in memory (there is no event fired by Geb which tells the plugin that all reports
+have been collected and data can be persisted). So the solution is to write the
+data from these report snapshots to a file as JSON strings.</p>
 </div>
 <div class="paragraph">
 <p>Later, when Grails notifies the plugin that all tests have been executed, the plugin
 will read those report snapshots and remove redundant information by generating a
 better structured map which is also stored as JSON in another report file (in case
-someone else want to base some functionality on this data).</p>
+someone else wants to base some functionality on this data).</p>
 </div>
 <div class="paragraph">
 <p>In the next step, the plugin takes the created data structure and feeds it as model
@@ -420,10 +449,10 @@ be easily provided by the project the plugin is used in.</p>
 <div class="sect3">
 <h4 id="_alternatives_and_solution_decision">5.1.2. Alternatives and Solution/Decision</h4>
 <div class="paragraph">
-<p>The first version of the FilmStrip-Plugin crawled through the generated screenshots and tried to extract all data from the the image name and its path.</p>
+<p>The first version of the FilmStrip-Plugin crawled through the generated screenshots and tried to extract all data from the image name and its path.</p>
 </div>
 <div class="paragraph">
-<p>The current version uses a ReportListener to collect the data. The ReportListener gets some more information than the one available in the file system like the URL and name of page object.</p>
+<p>The current version uses the Geb <a href="http://www.gebish.org/manual/0.9.2/api/geb/report/ReportingListener.html">ReportingListener</a> to collect the data. The ReportListener gets some more information than the one available in the file system like the URL and name of page object.</p>
 </div>
 <div class="paragraph">
 <p>Since there is only an <code>onReport</code> event and no <code>onReportFinished</code> and because of the data provided, the data collection is a two step process:</p>
@@ -443,6 +472,28 @@ be easily provided by the project the plugin is used in.</p>
 </div>
 <div class="paragraph">
 <p>The number together with the label of the test and report is made available as one String, joined together with dashed (<em>-</em>). So if the labels contain a dash themself, the labels will not be extracted the right way. To solve this, the <code>geb.report.ReporterSupport</code> got monkey patches through meta-programming.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_monkey_patching">5.2. Monkey Patching</h3>
+<div class="sect3">
+<h4 id="_problem_2">5.2.1. Problem</h4>
+<div class="paragraph">
+<p>As described in the previous design decision, the plugin uses a monkey patch for <code>geb.report.ReporterSupport</code></p>
+</div>
+<div class="paragraph">
+<p>Monkey patches are considered as bad practice.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_alternatives_and_solution_decision_2">5.2.2. Alternatives and Solution/Decision</h4>
+<div class="paragraph">
+<p>One alternative to the monkey patch is to derive a new <code>Spec</code>-class from <code>GebReportingSpec</code> (proposed by Marcin Erdmann - thanx for the idea!).
+This would be a clean solution with the drawback that all specs have to be rewritten to use this <code>Spec</code>-class.</p>
+</div>
+<div class="paragraph">
+<p>Currently, the plugin will still use the monkey patch until is causes problems ;-)</p>
 </div>
 <div style="page-break-after: always;"></div>
 </div>
@@ -612,7 +663,25 @@ versions of Grails</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_contributing">Appendix C: Contributing</h2>
+<h2 id="_contributors">Appendix C: Contributors</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Macin Erdmann - thoughts about monkey patch</p>
+</li>
+<li>
+<p>Burth Beckwith - cleanup of plugin code</p>
+</li>
+<li>
+<p>Peter Ledbrook - tipps on how to fix the plugin for grails 2.4.4</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_contributing">Contributing</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Contributions are welcome. The quality and form does not matter. If you don&#8217;t have
@@ -660,14 +729,14 @@ goal is to sync these offline issues with the github ones.</p>
 </thead>
 <tbody>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/rdmueller/grails-filmStrip/issues/29">FS-29</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">open</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">generation of docs broken</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/rdmueller/grails-filmStrip/issues/28">FS-28</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">open</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Upload Petclinic Projects</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/rdmueller/grails-filmStrip/issues/22">FS-22</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">open</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">add contributions section to documentation</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/rdmueller/grails-filmStrip/issues/21">FS-21</a></p></td>
@@ -688,11 +757,6 @@ goal is to sync these offline issues with the github ones.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/rdmueller/grails-filmStrip/issues/18">FS-18</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">open</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">compare created arc42 documentation with docs of the 10 best plugins</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/rdmueller/grails-filmStrip/issues/17">FS-17</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">open</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">finish documentation</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/rdmueller/grails-filmStrip/issues/16">FS-16</a></p></td>
