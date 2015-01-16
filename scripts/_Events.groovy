@@ -14,6 +14,9 @@
  * limitations under the License.
  */
 
+
+import groovy.json.JsonOutput
+import org.apache.commons.io.FileUtils
 import org.codehaus.groovy.grails.plugins.GrailsPluginUtils
 import geb.report.ReporterSupport
 import grails.converters.JSON
@@ -23,7 +26,7 @@ import groovy.xml.MarkupBuilder
  *
  * @author Ralf D. Müller
  */
-def pluginDir = GrailsPluginUtils.pluginInfos.find { it.name == "film-strip" }?.pluginDir
+def pluginDir = GrailsPluginUtils.pluginInfos.find { it.name == "film-strip" }?.pluginDir.file.canonicalPath
 if (!pluginDir) {
     pluginDir = filmStripPluginDir
 }
@@ -66,9 +69,8 @@ def convertJsonReport = {
         }
     }
 
-    def newJson = allReports as JSON
-    newJson.prettyPrint = true
-    new File(reportsDir, "gebReportInfo2.json").write(newJson.toString())
+    def newJson = JsonOutput.toJson(allReports)
+    new File(reportsDir, "gebReportInfo2.json").write(JsonOutput.prettyPrint(newJson))
 }
 //Script to generate a better Test-Report for Spock-Geb Tests
 def createFilmStrip= {
@@ -148,8 +150,8 @@ def createFilmStrip= {
     File reportFile = new File(reportsDir, "geb_report.html")
     reportFile.write(xhtml.toString())
 
-    new File("./target/test-reports/geb/report.css").write(
-        new File(pluginDir.toString(), 'web-app/css/report.css').text
+    new File("$reportsDir/report.css").write(
+        new File(pluginDir, '/web-app/css/report.css').text
     )
 
     println "FilmStrip: created at '$reportFile.path'"
