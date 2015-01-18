@@ -36,3 +36,22 @@ One alternative to the monkey patch is to derive a new +Spec+-class from +GebRep
 This would be a clean solution with the drawback that all specs have to be rewritten to use this +Spec+-class.
 
 Currently, the plugin will still use the monkey patch until is causes problems ;-)
+
+=== Fix for Packages
+
+==== Problem
+
+The report should link to the HTML test reports in order to show some more details 
+(link behind the spec name). But the reports are prefixed with a number. If no 
+packages are used to group the tests, the number is in line with the order of test
+execution, but if packages are used, I couldn't find out how they are numbered.
+
+==== Alternatives and Solution/Decision
+
+One way to solve this could have been to dive deep down into the report generation
+and find out how the files are numbered. The effort would have been to high at the moment.
+
+The solution which is now implemented is to crawl through the existing html report files,
+find the one with the proper name in the proper folder and extract the prefixed number.
+Since the reports are not available when +eventTestProduceReports+ is fired, the code was
+moved to the +eventTestPhasesEnd+.
