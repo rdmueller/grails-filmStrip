@@ -2,17 +2,13 @@
 [options="header",cols="1,1,10"]
 |====
 |ID    |State  | Description
-|https://github.com/rdmueller/grails-filmStrip/issues/29[FS-29] | open | generation of docs broken
 |https://github.com/rdmueller/grails-filmStrip/issues/28[FS-28] | open | Upload Petclinic Projects
 |https://github.com/rdmueller/grails-filmStrip/issues/21[FS-21] | open | upload the petclinic report to github.io and add it to the examples section
-|https://github.com/rdmueller/grails-filmStrip/issues/20[FS-20] | open | see FS #12 : Packages are important, so implement them
 |https://github.com/rdmueller/grails-filmStrip/issues/19[FS-19] | open | create the same functionality as gradle project, later plugin
 |https://github.com/rdmueller/grails-filmStrip/issues/18[FS-18] | open | compare created arc42 documentation with docs of the 10 best plugins
 |https://github.com/rdmueller/grails-filmStrip/issues/16[FS-16] | open | It would be nice to find an automated way to add the FileStripReportingListener to the gebConfig
 |https://github.com/rdmueller/grails-filmStrip/issues/15[FS-15] | open | Want to have a button with which I can flip through all screens
-|https://github.com/rdmueller/grails-filmStrip/issues/14[FS-14] | open | Replace monkey patch with a better solution. Solution proposed by Marcin Erdmann: extend GebReportingSpec.
 |https://github.com/rdmueller/grails-filmStrip/issues/13[FS-13] | open | End-Reports are currently not shown. The intended behaviour is that they are only not shown when the content is the same as of the report before. This can be achieved by comparing the reported HTML
-|https://github.com/rdmueller/grails-filmStrip/issues/12[FS-12] | open | packages are currently not supported ⇒ document this
 |https://github.com/rdmueller/grails-filmStrip/issues/10[FS-10] | open | add some profile "fotos" to each persona. There is this cool avatar genrator which might be used.
 |https://github.com/rdmueller/grails-filmStrip/issues/9[FS-9] | open | Create a Demo-Report
 |https://github.com/rdmueller/grails-filmStrip/issues/8[FS-8] | open | Report is also generated if only unit or integration tests are executed
