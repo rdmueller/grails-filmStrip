@@ -35,6 +35,7 @@
 <ul class="sectlevel2">
 <li><a href="#_data_collection">5.1. Data Collection</a></li>
 <li><a href="#_monkey_patching">5.2. Monkey Patching</a></li>
+<li><a href="#_fix_for_packages">5.3. Fix for Packages</a></li>
 </ul>
 </li>
 <li><a href="#section-glossary">6. Glossary</a></li>
@@ -495,6 +496,31 @@ This would be a clean solution with the drawback that all specs have to be rewri
 <div class="paragraph">
 <p>Currently, the plugin will still use the monkey patch until is causes problems ;-)</p>
 </div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_fix_for_packages">5.3. Fix for Packages</h3>
+<div class="sect3">
+<h4 id="_problem_3">5.3.1. Problem</h4>
+<div class="paragraph">
+<p>The report should link to the HTML test reports in order to show some more details
+(link behind the spec name). But the reports are prefixed with a number. If no
+packages are used to group the tests, the number is in line with the order of test
+execution, but if packages are used, I couldn&#8217;t find out how they are numbered.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_alternatives_and_solution_decision_3">5.3.2. Alternatives and Solution/Decision</h4>
+<div class="paragraph">
+<p>One way to solve this could have been to dive deep down into the report generation
+and find out how the files are numbered. The effort would have been to high at the moment.</p>
+</div>
+<div class="paragraph">
+<p>The solution which is now implemented is to crawl through the existing html report files,
+find the one with the proper name in the proper folder and extract the prefixed number.
+Since the reports are not available when <code>eventTestProduceReports</code> is fired, the code was
+moved to the <code>eventTestPhasesEnd</code>.</p>
+</div>
 <div style="page-break-after: always;"></div>
 </div>
 </div>
@@ -668,7 +694,7 @@ versions of Grails</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Macin Erdmann - thoughts about monkey patch</p>
+<p>Marcin Erdmann - thoughts about monkey patch</p>
 </li>
 <li>
 <p>Burth Beckwith - cleanup of plugin code</p>
@@ -729,11 +755,6 @@ goal is to sync these offline issues with the github ones.</p>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/rdmueller/grails-filmStrip/issues/29">FS-29</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">open</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">generation of docs broken</p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/rdmueller/grails-filmStrip/issues/28">FS-28</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">open</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Upload Petclinic Projects</p></td>
@@ -742,11 +763,6 @@ goal is to sync these offline issues with the github ones.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/rdmueller/grails-filmStrip/issues/21">FS-21</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">open</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">upload the petclinic report to github.io and add it to the examples section</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/rdmueller/grails-filmStrip/issues/20">FS-20</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">open</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">see FS #12 : Packages are important, so implement them</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/rdmueller/grails-filmStrip/issues/19">FS-19</a></p></td>
@@ -769,19 +785,9 @@ goal is to sync these offline issues with the github ones.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Want to have a button with which I can flip through all screens</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/rdmueller/grails-filmStrip/issues/14">FS-14</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">open</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Replace monkey patch with a better solution. Solution proposed by Marcin Erdmann: extend GebReportingSpec.</p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/rdmueller/grails-filmStrip/issues/13">FS-13</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">open</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">End-Reports are currently not shown. The intended behaviour is that they are only not shown when the content is the same as of the report before. This can be achieved by comparing the reported HTML</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/rdmueller/grails-filmStrip/issues/12">FS-12</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">open</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">packages are currently not supported ⇒ document this</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/rdmueller/grails-filmStrip/issues/10">FS-10</a></p></td>
