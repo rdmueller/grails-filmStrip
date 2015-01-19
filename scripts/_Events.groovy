@@ -95,7 +95,7 @@ def createFilmStrip= {
                     tr {
                         gebReports.specs.eachWithIndex { spec, i ->
                             def specName = spec.label.split('/')[-1]
-                            def specPath = spec.label.split('/')[0..-2].join('/')
+                            def specPath = spec.label.contains('/')?spec.label.split('/')[0..-2].join('/'):''
                             // most of the time, the html test page is located at
                             // "../html/${specPath}/${i}_${specName}.html"
                             // but sometimes not (especially when packages are used to group tests)

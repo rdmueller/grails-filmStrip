@@ -2,7 +2,10 @@ class FilmStripGrailsPlugin {
     def version = "0.1.2"
     def grailsVersion = "2.2 > *"
     def pluginExcludes = [
-        "README.adoc"
+        "README.adoc",
+        "src/doc/**",
+        "scripts/Arc42GenerateHtmlFromAsciiDoc.groovy",
+        "scripts/_githubIssues2AsciiDoc.groovy"
     ]
     def title = "Film Strip Plugin"
     def author = "Ralf D. Müller"
