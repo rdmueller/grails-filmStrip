@@ -17,7 +17,7 @@ target(githubIssues2AsciiDoc: "Fetch GitHub issues and render them as AsciiDoc")
 |====
 |ID    |State  | Description''')
 
-        issues.each { writer.writeLine << "|${it.html_url}[FS-${it.number}] | ${it.state} | ${it.title}" }
+        issues.each { writer << "|${it.html_url}[FS-${it.number}] | ${it.state} | ${it.title}\n" }
 
         writer.writeLine('|====')
     }

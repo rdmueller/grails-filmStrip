@@ -9,9 +9,9 @@ In order to create a report, we have to collect the data we want to report on.
 
 ==== Alternatives and Solution/Decision
 
-The first version of the FilmStrip-Plugin crawled through the generated screenshots and tried to extract all data from the the image name and its path.
+The first version of the FilmStrip-Plugin crawled through the generated screenshots and tried to extract all data from the image name and its path.
 
-The current version uses a ReportListener to collect the data. The ReportListener gets some more information than the one available in the file system like the URL and name of page object.
+The current version uses the Geb http://www.gebish.org/manual/0.9.2/api/geb/report/ReportingListener.html[ReportingListener] to collect the data. The ReportListener gets some more information than the one available in the file system like the URL and name of page object.
 
 Since there is only an +onReport+ event and no +onReportFinished+ and because of the data provided, the data collection is a two step process:
 
@@ -21,3 +21,37 @@ Since there is only an +onReport+ event and no +onReportFinished+ and because of
 The data from step one is collected in a JSON formatted report file and read in step two from this file.
 
 The number together with the label of the test and report is made available as one String, joined together with dashed ('-'). So if the labels contain a dash themself, the labels will not be extracted the right way. To solve this, the +geb.report.ReporterSupport+ got monkey patches through meta-programming.
+
+=== Monkey Patching
+
+==== Problem
+
+As described in the previous design decision, the plugin uses a monkey patch for +geb.report.ReporterSupport+
+
+Monkey patches are considered as bad practice.
+
+==== Alternatives and Solution/Decision
+
+One alternative to the monkey patch is to derive a new +Spec+-class from +GebReportingSpec+ (proposed by Marcin Erdmann - thanx for the idea!).
+This would be a clean solution with the drawback that all specs have to be rewritten to use this +Spec+-class.
+
+Currently, the plugin will still use the monkey patch until is causes problems ;-)
+
+=== Fix for Packages
+
+==== Problem
+
+The report should link to the HTML test reports in order to show some more details 
+(link behind the spec name). But the reports are prefixed with a number. If no 
+packages are used to group the tests, the number is in line with the order of test
+execution, but if packages are used, I couldn't find out how they are numbered.
+
+==== Alternatives and Solution/Decision
+
+One way to solve this could have been to dive deep down into the report generation
+and find out how the files are numbered. The effort would have been to high at the moment.
+
+The solution which is now implemented is to crawl through the existing html report files,
+find the one with the proper name in the proper folder and extract the prefixed number.
+Since the reports are not available when +eventTestProduceReports+ is fired, the code was
+moved to the +eventTestPhasesEnd+.

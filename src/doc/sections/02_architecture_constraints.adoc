@@ -15,5 +15,5 @@ which take screenshots, but it will only be tested against phantomJs.
 Since maps are easy to handle in groovy and grails, the generated data model should not
 be a complex java object, but a simple map.
 
-Whenever the map has to be serialized, JSON should be used a format with pretty print
-turned on. THis ensures that a developer is able to analyze the raw data.
+Whenever the map has to be serialized, JSON should be used as format with pretty print
+turned on. This ensures that a developer is able to analyze the raw data.

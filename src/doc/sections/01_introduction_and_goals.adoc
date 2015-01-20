@@ -10,7 +10,7 @@ A not so well known feature of Geb is the http://www.gebish.org/manual/current/t
 whenever you use the command ++report "some text"++, geb tries to create a screenshot and save the current DOM as HTML.
 
 This plugin crawls through the generated screenshots and creates an HTML report
-which displays preview images as film strip at the top of the report-page and the
+which displays preview images as a film strip at the top of the report-page and the
 test-result on the main part of the window. When you click on an image, it will be displayed
 in full size, if you click on the name of a report image, the corresponding HTML
 file will be displayed. Without the proper path to referenced files, this view will
@@ -21,8 +21,22 @@ and you can manually verify what happened.
 
 The aim of this plugin is not only to help a tester in developing Geb/Spock tests
 and see what went wrong, but also to create a report for your customer. With all
-those screenshot you can easily get an graphical overview of the application and
+those screenshots you can easily get an graphical overview of the application and
 see if all pages display correctly.
+
+=== Quickstart
+
+There is not much to do in order to use the plugin. Just configure it in your ++BuildConfig.groovy++
+
+    test ':film-strip:0.1.2'
+
+and add the folowing line to your gebConfig.groovy:
+
+    reportingListener = new grails.plugin.filmstrip.FilmStripReportingListener()
+
+If your geb reportDir is the standard one, the report will be generated after running grails test-app.
+
+You will find the generated report in ++target/test-reports/geb++
 
 === Requirements Overview
 
@@ -55,9 +69,9 @@ see if all pages display correctly.
 |usability     | install and run with reasonable default configs. See <<R2>>
 |===
 
-=== Stakeholder
+=== Stakeholders
 
-These are the stakeholder I (Ralf D. Müller) had in mind when I started to code
+These are the stakeholders I (Ralf D. Müller) had in mind when I started to code
 this plugin and I am open for discussions :-)
 
 [options="header",cols="<.<1,<.<3,<.<2"]
@@ -69,7 +83,7 @@ this plugin and I am open for discussions :-)
 						  		   				  issue tracking or direct mail
 | Business
   Analyst (BA) | wants to specify tests in
-  				 natural language and want to
+  				 natural language and wants to
   				 be able to read test reports	| Hope for indirect feedback through developers
 | Contractor   | wants to proof to client
                  that his software is
@@ -84,17 +98,17 @@ this plugin and I am open for discussions :-)
 
 ==== Personas
 
-The following section will describe some fictional stakeholder. The intention is
+The following section will describe some fictional stakeholders. The intention is
 to add some more to the stakeholder description above and to allow you to easily
-switch into the role of the stakeholder.
+switch into the role of a stakeholder.
 
-Melanie Schmitt:: Melanie works as a freelancer in the role of *developer*. She is used to write automated tests for her code. She would now like to use the test results as some kind acceptance report. When she delivers a release, the wants to have a report ready which can be signed of by the customer as soon as he accepts the delivered features. +
-She also made the experience that sometimes customers report a bug where it is not clear if it is really a bug or works as designed. Through a history of proper test reports with screenshots, she hopes to be able to easily prove that it's not a bug but a change the customer has to pay for. +
+Melanie Schmitt:: Melanie works as a freelancer in the role of a *developer*. She is used to write automated tests for her code. She would now like to use the test results as some kind of acceptance report. When she delivers a release, she wants to have a report ready which can be signed of by the customer as soon as he accepts the delivered features. +
+She also made the experience that sometimes customers report a bug where it is not clear if it is really a bug or works as designed. Through a history of proper test reports with screenshots, she hopes to be able to easily prove that it's not a bug but a change the customer has to pay for (because it was this way all the time). +
 Those two features will help Melanie to be recognized as professional developer and optimize her effort/Value ratio.
 
-Peter Miller:: Peter is a *business analyst* who works together with a team of developers on larger projects. He would like to specify automated tests but has not enough technical background to write test scripts. He also does not like to have a development environment up and running in order to run the tests be himself but he would like to have a good looking report which helps him to check if the tests have been executed in the intended way.+
+Peter Miller:: Peter is a *business analyst* who works together with a team of developers on larger projects. He would like to specify automated tests but has not enough technical background to write test scripts. He also does not like to have a development environment up and running in order to run the tests by himself but he would like to have a good looking report which helps him to check if the tests have been executed in the intended way. +
 The goal for Peter is to write tests in natural language and hand them over to the developers. They will then turn them into executable tests and generate tests reports for each new release. The reports are handed back to Peter for an acceptance sign-off.
 
-Henry Ford:: Henry is a *developer* who works together with Peter. Henry needs a way to add readable code to the natural language test description and combine both in a report. When Henry runs his tests, he can watch his web browser execute the tests and he sees if something looks wrong. But he also would like to have those screens as screenshots included in his report. In case that Peter complaints about a specific test in the generated report, the report should include enough detail for Henry to figure out what code has been executed for the test in order to easily see what's going on.
+Henry Ford:: Henry is a *developer* who works together with Peter. Henry needs a way to add readable code to the natural language test description (received from Peter) and combine both in a report. When Henry runs his tests, he can watch his web browser execute the tests and he sees if something looks wrong. But he also would like to have those screens as screenshots included in his report. In case that Peter complains about a specific test in the generated report, the report should include enough detail for Henry to figure out what code has been executed for the test in order to easily see what's going on.
 
 Steve Bauer:: Steve is a *designer* who needs to make sure that his design guidelines are followed by the developers. He doesn't care about the functionality of the application, only the screens. So he needs a report where he can flip through all screens and see if he can find a design flaw.

@@ -95,12 +95,29 @@ def createFilmStrip= {
                 table(class:'level1') {
                     tr {
                         gebReports.specs.eachWithIndex { spec, i ->
+                            def specName = spec.label.split('/')[-1]
+                            def specPath = spec.label.contains('/')?spec.label.split('/')[0..-2].join('/'):''
+                            // most of the time, the html test page is located at
+                            // "../html/${specPath}/${i}_${specName}.html"
+                            // but sometimes not (especially when packages are used to group tests)
+                            // since I don't know the reason, I have to implement an ugly fix
+                            // the path seems to be correct, but ${i} not, so let's search for it...
+                            def pathToHTMLTestReport = "target/test-reports/html/${specPath}/"
+                            def testIndex = i
+                            
+                            new File (pathToHTMLTestReport+'.').eachFile { file ->
+                                if (file.name.endsWith("_${specName}.html")) {
+                                    //got it!
+                                    testIndex = file.name.split('_')[0]
+                                }
+                            }
+                            
                             th {
                                 a(name:'spec'+i,class:'anchor') {
                                     a(href:'#spec'+(i-1),"<")
                                     span(" ")
                                     a(href:'#spec'+(i+1),"> ")
-                                    a(target:'content',href:"../html/${i}_${spec.label}.html", "${i+1}. ${spec.label}")
+                                    a(target:'content',href:"../html/${specPath}/${testIndex}_${specName}.html", "${i+1}. ${spec.label}")
                                 }
                             }
                         }
@@ -156,15 +173,9 @@ def createFilmStrip= {
     println "FilmStrip: created at '$reportFile.path'"
 }
 
-eventTestProduceReports = {
-    println "eventTestProduceReports "
-    convertJsonReport()
-    createFilmStrip()
-}
-
 eventTestPhasesStart = { name ->
-    println "eventTestPhasesStart "+name
-    println "monkey patch for geb.report.Reporter"
+    println "FilmStrip: eventTestPhasesStart "+name
+    println "FilmStrip: monkey patch for geb.report.Reporter"
     ReporterSupport.metaClass.static.toTestReportLabel={
                 int testCounter,
                 int reportCounter,
@@ -175,18 +186,9 @@ eventTestPhasesStart = { name ->
     }
 }
 
-eventTestPhaseEnd = { name ->
-    println "eventTestPhaseEnd "+name
-}
-
 eventTestPhasesEnd = {
-    println "eventTestPhasesEnd "
+    println "FilmStrip: eventTestPhasesEnd "
+    convertJsonReport()
+    createFilmStrip()
 }
 
-eventTestSuiteStart = { name ->
-    println "testSuiteStart: ${name}"
-}
-
-eventTestSuiteEnd = { name ->
-    println "eventTestSuiteEnd "+name
-}

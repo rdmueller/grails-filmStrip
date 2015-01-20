@@ -19,7 +19,11 @@ image::./src/doc/images/Screenshot.png["Screenshot", align="center"]
 
 === Setup / Usage
 
-There is not much to do in order to use the plugin. Just configure it in your +BuildConfig.groovy+ and add the folowing line to your gebConfig.groovy:
+There is not much to do in order to use the plugin. Just configure it in your +BuildConfig.groovy+ as
+
+    test ":film-strip:0.1.2"
+
+and add the folowing line to your gebConfig.groovy:
 
     reportingListener = new grails.plugin.filmstrip.FilmStripReportingListener()
 
