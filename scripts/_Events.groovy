@@ -16,7 +16,6 @@
 
 
 import groovy.json.JsonOutput
-import org.apache.commons.io.FileUtils
 import org.codehaus.groovy.grails.plugins.GrailsPluginUtils
 import geb.report.ReporterSupport
 import grails.converters.JSON
