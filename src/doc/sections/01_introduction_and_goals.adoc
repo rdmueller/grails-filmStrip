@@ -28,7 +28,7 @@ see if all pages display correctly.
 
 There is not much to do in order to use the plugin. Just configure it in your ++BuildConfig.groovy++
 
-    test ':film-strip:0.1.3'
+    test ':film-strip:0.1.4'
 
 and add the folowing line to your gebConfig.groovy:
 

@@ -3,7 +3,7 @@ package grails.plugin.filmstrip
 import geb.report.ReportState
 import geb.report.Reporter
 import geb.report.ReportingListener
-import grails.converters.JSON
+import groovy.json.JsonOutput
 
 /**
  * Extracts all information gathered as JSON to a file which is later processed
@@ -37,6 +37,7 @@ class FilmStripReportingListener implements ReportingListener {
         ]
       ]
     ]
-    out << (res as JSON).toString()+"\n"
+
+    out << JsonOutput.toJson(res)+"\n"
   }
 }

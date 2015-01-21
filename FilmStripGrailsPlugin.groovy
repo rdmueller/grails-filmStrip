@@ -1,6 +1,6 @@
 class FilmStripGrailsPlugin {
-    def version = "0.1.3"
-    def grailsVersion = "2.2 > *"
+    def version = "0.1.4"
+    def grailsVersion = "2.1 > *"
     def pluginExcludes = [
         "README.adoc",
         "src/doc/**",
