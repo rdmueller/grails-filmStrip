@@ -38,6 +38,10 @@ If your geb reportDir is the standard one, the report will be generated after ru
 
 You will find the generated report in ++target/test-reports/geb++
 
+There is a fork of the Gails-Pet-Clinic sample application on https://github.com/rdmueller/grails-petclinic
+which contains two branches (https://github.com/rdmueller/grails-petclinic/tree/film-strip-plugin-2.2[film-strip-plugin-2.2] and https://github.com/rdmueller/grails-petclinic/tree/film-strip-plugin-2.4[film-strip-plugin-2.4]) with
+Spock/Geb tests and the film strip plugin installed. See the readme on how to execute the tests.
+
 === Requirements Overview
 
 [options="header",cols="1,2,10"]
