@@ -2,7 +2,7 @@
 
 [cols="1,4" options=""]
 |===
-| image:arc42-logo.png[arc42, link={arc42-url}]
+| image:arc42-logo.png[arc42, link=https://arc42.github.io/]
 | [small]#(C) This document uses material from the http://arc42.de[arc42 architecture
 template^], freely available at  http://github.com/arc42.# +
 [small]#arc42 is open source and provided under the Creative Commons Sharealike 4.0 license.
