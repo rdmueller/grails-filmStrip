@@ -2,7 +2,6 @@
 [options="header",cols="1,1,10"]
 |====
 |ID    |State  | Description
-|https://github.com/rdmueller/grails-filmStrip/issues/28[FS-28] | open | Upload Petclinic Projects
 |https://github.com/rdmueller/grails-filmStrip/issues/21[FS-21] | open | upload the petclinic report to github.io and add it to the examples section
 |https://github.com/rdmueller/grails-filmStrip/issues/19[FS-19] | open | create the same functionality as gradle project, later plugin
 |https://github.com/rdmueller/grails-filmStrip/issues/18[FS-18] | open | compare created arc42 documentation with docs of the 10 best plugins

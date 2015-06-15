@@ -7,10 +7,8 @@ Currently there is only one example which is based on the Pet Clinic sample appl
 
 image::../images/Screenshot.png["Screenshot", align="center"]
 
-the report can be found at
+the modified grails pet-clinic project to generate above report can be found at
 
-TODO:
+* https://github.com/rdmueller/grails-petclinic/tree/film-strip-plugin-2.2[Pet-Clinic (Grails 2.2)]
+* https://github.com/rdmueller/grails-petclinic/tree/film-strip-plugin-2.4[Pet-Clinic (Grails 2.4)]
 
-add the corresponding version of the Pet Clinic can be found at
-
-TODO:
