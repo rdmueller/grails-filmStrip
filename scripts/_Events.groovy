@@ -25,6 +25,9 @@ import groovy.xml.MarkupBuilder
  *
  * @author Ralf D. Müller
  */
+
+boolean inFunctionalTestPhase = false
+
 def pluginDir = GrailsPluginUtils.pluginInfos.find { it.name == "film-strip" }?.pluginDir.file.canonicalPath
 if (!pluginDir) {
     pluginDir = filmStripPluginDir
@@ -181,20 +184,24 @@ def createFilmStrip= {
     println "FilmStrip: created at '$reportFile.path'"
 }
 
-eventTestPhasesStart = { name ->
-    println "FilmStrip: eventTestPhasesStart "+name
+eventTestSuiteStart = { typeName ->
+    println "FilmStrip eventTestSuiteStart: $typeName"
+    inFunctionalTestPhase = (typeName == 'functional')
+    if (!inFunctionalTestPhase) return
+
     println "FilmStrip: monkey patch for geb.report.Reporter"
     ReporterSupport.metaClass.static.toTestReportLabel={
         int testCounter,
         int reportCounter,
         String methodName,
         String label ->
-        //escape dashes...
-        "${testCounter}-${reportCounter}-${methodName.replaceAll('-','--')}-${label.replaceAll('-','--')}"
+            //escape dashes...
+            "${testCounter}-${reportCounter}-${methodName.replaceAll('-','--')}-${label.replaceAll('-','--')}"
     }
 }
 
 eventTestPhasesEnd = {
+    if (!inFunctionalTestPhase) return
     println "FilmStrip: eventTestPhasesEnd "
     convertJsonReport()
     createFilmStrip()
