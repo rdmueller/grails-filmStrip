@@ -10,3 +10,5 @@
 /target-eclipse
 /target
 /web-app/WEB-INF
+/.idea
+/filmStrip.iml
