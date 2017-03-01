@@ -15,18 +15,16 @@
  */
 
 
+import groovy.json.JsonOutput
+import org.codehaus.groovy.grails.plugins.GrailsPluginUtils
 import geb.report.ReporterSupport
 import grails.converters.JSON
-import groovy.json.JsonOutput
 import groovy.xml.MarkupBuilder
-import org.codehaus.groovy.grails.plugins.GrailsPluginUtils
+
 /**
  *
  * @author Ralf D. Müller
  */
-
-boolean inFunctionalTestPhase = false
-
 def pluginDir = GrailsPluginUtils.pluginInfos.find { it.name == "film-strip" }?.pluginDir.file.canonicalPath
 if (!pluginDir) {
     pluginDir = filmStripPluginDir
@@ -38,61 +36,59 @@ if (!pluginDir) {
 //Script to convert ouput from geb.ReportingListener into something structured
 def convertJsonReport = {
     def reportsDir = "target/test-reports/geb/"
+    //make sure the filder exists
+    new File(reportsDir).mkdirs()
     def thisPath = new File('.').canonicalPath.replaceAll('\\\\','/')
-    File gebReportsFile = new File(reportsDir, "gebReportInfo.json")
-    if (!gebReportsFile.exists()){
-        println "Report Json file ${gebReportsFile.absolutePath} not found. Skipping geb report processing."
-        return
-    }
-    def gebReports = gebReportsFile.text.replaceAll('\\\\','/')
+    def gebReports = new File(reportsDir, "gebReportInfo.json")
     def allReports = [specs:[]]
+    if (gebReports.exists()) {
+        gebReports = gebReports.text.replaceAll('\\\\','/')
 
-    gebReports.eachLine { json ->
-        def reportLine = JSON.parse(json)
-        if (!(reportLine.spec.label in allReports.specs.label)) {
-            allReports.specs << [label:reportLine.spec.label,tests:[]]
+        gebReports.eachLine { json ->
+            def reportLine = JSON.parse(json)
+            if (!(reportLine.spec.label in allReports.specs.label)) {
+                allReports.specs << [label:reportLine.spec.label,tests:[]]
+            }
+            def spec = allReports.specs.find { spec -> spec.label==reportLine.spec.label }
+            if (!(reportLine.spec.test.num in spec.tests.num)) {
+                spec.tests << [
+                    num:reportLine.spec.test.num,
+                    label: reportLine.spec.test.label,
+                    reports: []
+                ]
+            }
+            def test = spec.tests.find { test -> test.num==reportLine.spec.test.num }
+            if (!(reportLine.spec.test.report.num in test.reports.num)) {
+                test.reports << [
+                    num:reportLine.spec.test.report.num,
+                    label:reportLine.spec.test.report.label,
+                    url:reportLine.spec.test.report.url,
+                    files:[]
+                ]
+            }
+            def report = test.reports.find { report -> report.num==reportLine.spec.test.report.num }
+            if (!(reportLine.spec.test.report.files in report.files)) {
+                report.files += reportLine.spec.test.report.files.collect{"."+it.replaceAll('//','/')-thisPath-reportsDir}
+            }
         }
-        def spec = allReports.specs.find { spec -> spec.label==reportLine.spec.label }
-        if (!(reportLine.spec.test.num in spec.tests.num)) {
-            spec.tests << [
-                num:reportLine.spec.test.num,
-                label: reportLine.spec.test.label,
-                reports: []
-            ]
-        }
-        def test = spec.tests.find { test -> test.num==reportLine.spec.test.num }
-        if (!(reportLine.spec.test.report.num in test.reports.num)) {
-            test.reports << [
-                num:reportLine.spec.test.report.num,
-                label:reportLine.spec.test.report.label,
-                url:reportLine.spec.test.report.url,
-                files:[]
-            ]
-        }
-        def report = test.reports.find { report -> report.num==reportLine.spec.test.report.num }
-        if (!(reportLine.spec.test.report.files in report.files)) {
-            report.files += reportLine.spec.test.report.files.collect{"."+it.replaceAll('//','/')-thisPath-reportsDir}
-        }
-        return
+
+    } else {
+        //this results in an empty report
+
     }
-
     def newJson = JsonOutput.toJson(allReports)
     new File(reportsDir, "gebReportInfo2.json").write(JsonOutput.prettyPrint(newJson))
-    return
 }
 //Script to generate a better Test-Report for Spock-Geb Tests
 def createFilmStrip= {
 
     //https://github.com/damage-control/report/wiki/Sample-Reports
-    def reportsDir = "./target/test-reports/geb"
-    def gebReportInfoFile = new File(reportsDir, "gebReportInfo2.json")
-    if (!gebReportInfoFile.exists()){
-        println "Report info file ${gebReportInfoFile.absolutePath} not found."
-        return
-    }
 
     println "FilmStrip: create Film-Strip"
-    def gebReports = gebReportInfoFile.text.replaceAll('\\\\','/')
+
+    def reportsDir = "./target/test-reports/geb"
+
+    def gebReports = new File(reportsDir, "gebReportInfo2.json").text.replaceAll('\\\\','/')
     gebReports = JSON.parse(gebReports)
 
     def xhtml = new StringWriter()
@@ -185,24 +181,20 @@ def createFilmStrip= {
     println "FilmStrip: created at '$reportFile.path'"
 }
 
-eventTestSuiteStart = { typeName ->
-    println "FilmStrip eventTestSuiteStart: $typeName"
-    inFunctionalTestPhase = (typeName == 'functional')
-    if (!inFunctionalTestPhase) return
-
+eventTestPhasesStart = { name ->
+    println "FilmStrip: eventTestPhasesStart "+name
     println "FilmStrip: monkey patch for geb.report.Reporter"
     ReporterSupport.metaClass.static.toTestReportLabel={
         int testCounter,
         int reportCounter,
         String methodName,
         String label ->
-            //escape dashes...
-            "${testCounter}-${reportCounter}-${methodName.replaceAll('-','--')}-${label.replaceAll('-','--')}"
+        //escape dashes...
+        "${testCounter}-${reportCounter}-${methodName.replaceAll('-','--')}-${label.replaceAll('-','--')}"
     }
 }
 
 eventTestPhasesEnd = {
-    if (!inFunctionalTestPhase) return
     println "FilmStrip: eventTestPhasesEnd "
     convertJsonReport()
     createFilmStrip()
