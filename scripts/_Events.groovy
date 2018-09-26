@@ -186,10 +186,10 @@ def createFilmStrip= {
 
 eventTestSuiteStart = { typeName ->
     println "FilmStrip eventTestSuiteStart: $typeName"
-    inFunctionalTestPhase = (typeName == 'functional')
+    inFunctionalTestPhase = (typeName in ['functional', 'spock'])
     if (!inFunctionalTestPhase) return
 
-    println "FilmStrip: monkey patch for geb.report.Reporter"
+    println "FilmStrip: monkey patch for geb.report.ReporterSupport"
     ReporterSupport.metaClass.static.toTestReportLabel={
         int testCounter,
         int reportCounter,
