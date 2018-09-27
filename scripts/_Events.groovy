@@ -38,8 +38,9 @@ if (!pluginDir) {
 
 //Script to convert ouput from geb.ReportingListener into something structured
 def convertJsonReport = {
-    def reportsDir = "target/test-reports/geb/"
-    //make sure the filder exists
+    def reportsDir = (System.properties.gebReportsDir ?: "target/test-reports/geb") as String
+
+    //make sure the folder exists
     new File(reportsDir).mkdirs()
     def thisPath = new File('.').canonicalPath.replaceAll('\\\\','/')
     def gebReports = new File(reportsDir, "gebReportInfo.json")
@@ -88,8 +89,8 @@ def createFilmStrip= {
     //https://github.com/damage-control/report/wiki/Sample-Reports
 
     println "FilmStrip: create Film-Strip"
-
-    def reportsDir = "./target/test-reports/geb"
+    
+    def reportsDir = (System.properties.gebReportsDir ?: "target/test-reports/geb") as String
 
     def gebReports = new File(reportsDir, "gebReportInfo2.json").text.replaceAll('\\\\','/')
     gebReports = JSON.parse(gebReports)

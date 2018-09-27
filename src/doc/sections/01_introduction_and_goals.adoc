@@ -28,7 +28,7 @@ see if all pages display correctly.
 
 There is not much to do in order to use the plugin. Just configure it in your ++BuildConfig.groovy++
 
-    test ':film-strip:0.1.4'
+    test ':film-strip:0.1.7'
 
 and add the folowing line to your gebConfig.groovy:
 
@@ -41,6 +41,23 @@ You will find the generated report in ++target/test-reports/geb++
 There is a fork of the Gails-Pet-Clinic sample application on https://github.com/rdmueller/grails-petclinic
 which contains two branches (https://github.com/rdmueller/grails-petclinic/tree/film-strip-plugin-2.2[film-strip-plugin-2.2] and https://github.com/rdmueller/grails-petclinic/tree/film-strip-plugin-2.4[film-strip-plugin-2.4]) with
 Spock/Geb tests and the film strip plugin installed. See the readme on how to execute the tests.
+
+=== Using with Ci systems
+If you want to use the plugin to generate html geb reports with screenshots in a Ci environment, it may be needed to store the screenshot
+HTML report and the screenshots with other test html reports (e.g. in target/test-reports/html) so you can publish the reports to the Ci master server
+(for example using Jenkins with the "Publish HTML reports" plugin).
+
+For this, you can use the Java property "gebReportsDir" (since version 0.1.7).
+
+Set in GebConfig.groovy:
+
+    reportsDir = new File((System.properties.gebReportsDir ?: "target/test-reports/geb") as String)
+
+Now you can execute your tests using a common reportsDir:
+
+    grails test-app functional: -DgebReportsDir="target/test-reports/html"
+
+You find all the geb screenshots and the geb_report.html in "target/test-reports/html", which you are now able to publish to your Ci master server.
 
 === Requirements Overview
 
