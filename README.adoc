@@ -21,7 +21,7 @@ image::./src/doc/images/Screenshot.png["Screenshot", align="center"]
 
 There is not much to do in order to use the plugin. Just configure it in your +BuildConfig.groovy+ as
 
-    test ":film-strip:0.1.6"
+    test ":film-strip:0.1.7"
 
 and add the following line to your gebConfig.groovy:
 

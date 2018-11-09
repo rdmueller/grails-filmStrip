@@ -170,7 +170,11 @@ def createFilmStrip= {
                 }
             }
             div(id:'content') {
-                iframe(name:'content',src:"../html/all.html")
+                if (new File("$reportsDir/all.html").exists()){
+                    iframe(name:'content',src:"all.html")
+                } else {
+                    iframe(name:'content',src:"../html/all.html")
+                }
             }
         }
     }
